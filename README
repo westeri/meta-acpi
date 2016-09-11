@@ -1,0 +1,147 @@
+This README file contains information on building the meta-acpi BSP
+layer. Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+This layer depends on:
+
+  URI: git://git.openembedded.org/bitbake
+  branch: master
+
+  URI: git://git.openembedded.org/openembedded-core
+  layers: meta
+  branch: master
+
+  URI: git://git.yoctoproject.org/meta-intel
+  layers: meta
+  branch: master
+
+Table of Contents
+=================
+
+  I. Overview
+  II. Building the meta-intel-acpi BSP layer
+  III. ACPI ASL fragments
+
+I. Overview
+===========
+
+This layer provides extended support for Intel ACPI enabled development
+boards such as Minnowboard, Minnowboard MAX, Galileo and Joule.
+
+The driving force here is that the BIOS shipped with these boards cannot
+possibly support all possible devices you can connect them. For example
+Minnowboard MAX has a low speed expansion connector providing access to
+I2C, SPI and UART buses. It is up to the developer to connect additional
+devices to the board.
+
+This layer makes it possible to include ACPI ASL fragments with the
+image. Each fragment contains description of one device connected to the
+board. The kernel loads these fragments during boot and is able to
+enumerate devices included in those.
+
+We include sample ACPI ASL fragments for each board that can be used as
+base for the actual devices the developer wants to connect to these
+boards.
+
+II. Building the meta-intel-acpi BSP layer
+===========================================
+
+This layer builds on top of meta-intel so you need to download it first
+here:
+
+  http://git.yoctoproject.org/cgit/cgit.cgi/meta-intel/
+
+Having done that, and assuming you extracted the BSP tarball contents at
+the top-level of your yocto build tree, you can build an image by adding
+the location of the meta-intel-acpi layer to bblayers.conf, along with
+any other layers needed (to access common metadata shared between BSPs)
+e.g.:
+
+  /path/to/poky/meta-intel \
+  /path/to/poky/meta-acpi \
+
+Currently supported boards include Galileo, Minnowboard, MinnowBoard MAX
+and Joule. You can pick the board including default ACPI ASL fragments
+by setting MACHINE in local.conf either of:
+
+  MACHINE = "galileo"
+  MACHINE = "minnowboard"
+  MACHINE = "minnowboard-max"
+  MACHINE = "joule"
+
+Depending on the board.
+
+You should then be able to build an image as such:
+
+  % source oe-init-build-env
+  % bitbake core-image-base
+
+At the end of a successful build, you should have a live image that you
+can boot from a USB flash drive.
+
+In order to write the image to the USB flash driver, you can do
+something like this:
+
+  % dd if=core-image-base-minnowboard.hddimg of=/dev/sdf bs=1M
+
+You may need to run this as root using sudo but before doing that, make
+sure you have the right device in place of /dev/sdf.
+
+III. ACPI ASL fragments
+=======================
+
+The recipes-bsp/acpi-fragments/samples/${MACHINE}/* includes sample ASL
+fragments for each board. The default configuration enables some of
+those. For example if you build for Minnowboard the
+conf/machine/minnowboard.conf has following line by default:
+
+  ACPI_FRAGMENTS ?= "buttons.asl leds.asl"
+
+This asks acpi-fragments package to include following sample ACPI ASL
+fragments:
+
+  recipes-bsp/acpi-fragments/samples/minnowboard/buttons.asl
+  recipes-bsp/acpi-fragments/samples/minnowboard/leds.asl
+
+These effectively create two new devices: A GPIO Buttons input device
+and a GPIO LEDS device. When you an image created with this
+configuration, you should see that the on board LED0 starts blinking
+approximately at human heartbeat rate. Also if you insert a SD-card, the
+LED1 on the board blinks as long as there is some I/O happening.
+
+You can use your own devices instead by overriding ACPI_FRAGMENTS in
+your local.conf. For example we can add a custom device to our
+Minnowboard like:
+
+  ACPI_FRAGMENTS = "${TOPDIR}/acpi-fragments/device.asl"
+
+This includes only device.asl and nothing more. Leaving ACPI_FRAGMENTS
+empty means no devices will be added.
+
+When you are adding your own devices, it is important that you look at
+the original ACPI tables of the board in question. Typically host
+controllers, like SPI and I2C, might have different path from board to
+board.
+
+When you are adding you own devices remember that paths and devices
+(host controller, like SPI and I2C) differ from board to board so it is
+important that you look at the actual ACPI tables of the board in
+question. For example here is one way you can dissasemble ACPI DSDT
+table.
+
+Run this on the target machine (acpidump is included with this meta
+layer):
+
+  # acpidump -o acpi.dump
+
+Copy this file to your host (you can use SSH for example). Then on the
+host you can run:
+
+  % acpixtract acpi.dump
+  % iasl -d dsdt.dat
+
+The resulting dsdt.dsl contains ASL code of the DSDT table. By
+inspecting this DSDT you should be able to figure out where to connect
+your device.
