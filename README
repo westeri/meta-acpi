@@ -6,16 +6,11 @@ Dependencies
 
 This layer depends on:
 
-  URI: git://git.openembedded.org/bitbake
-  branch: master
-
-  URI: git://git.openembedded.org/openembedded-core
-  layers: meta
-  branch: master
+  URI: git://git.yoctoproject.org/poky.git
+  branch: krogoth
 
   URI: git://git.yoctoproject.org/meta-intel
-  layers: meta
-  branch: master
+  branch: krogoth
 
 Table of Contents
 =================
@@ -48,10 +43,8 @@ boards.
 II. Building the meta-intel-acpi BSP layer
 ===========================================
 
-This layer builds on top of meta-intel so you need to download it first
-here:
-
-  http://git.yoctoproject.org/cgit/cgit.cgi/meta-intel/
+This layer builds on top of meta-intel (see dependencies above) so you
+need to download it first.
 
 Having done that, and assuming you extracted the BSP tarball contents at
 the top-level of your yocto build tree, you can build an image by adding
