@@ -34,7 +34,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("spidev-0.aml", "SSDT", 5, "INTEL", "SPIDEV0", 1)
+DefinitionBlock ("spidev-0.aml", "SSDT", 5, "", "SPIDEV0", 1)
 {
     External (_SB_.PCI0.SPI2, DeviceObj)
 

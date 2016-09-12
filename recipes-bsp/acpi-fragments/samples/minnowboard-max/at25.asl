@@ -36,7 +36,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("at25.aml", "SSDT", 5, "INTEL", "AT25", 1)
+DefinitionBlock ("at25.aml", "SSDT", 5, "", "AT25", 1)
 {
     External (_SB_.SPI1, DeviceObj)
 

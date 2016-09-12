@@ -32,7 +32,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("adc.aml", "SSDT", 5, "INTEL", "ADC", 1)
+DefinitionBlock ("adc.aml", "SSDT", 5, "", "ADC", 1)
 {
     External (_SB_.PCI0.I2C1, DeviceObj)
 

@@ -34,7 +34,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("leds.aml", "SSDT", 5, "INTEL", "LEDS", 1)
+DefinitionBlock ("leds.aml", "SSDT", 5, "INTEL", "", 1)
 {
     External (_SB_.PCI0.LPC, DeviceObj)
 

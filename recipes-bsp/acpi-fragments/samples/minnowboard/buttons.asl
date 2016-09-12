@@ -36,7 +36,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("buttons.aml", "SSDT", 5, "INTEL", "BUTTONS", 1)
+DefinitionBlock ("buttons.aml", "SSDT", 5, "", "BUTTONS", 1)
 {
     External (_SB_.PCI0.LPC, DeviceObj)
 
