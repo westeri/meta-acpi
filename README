@@ -18,6 +18,7 @@ Table of Contents
   I. Overview
   II. Building the meta-intel-acpi BSP layer
   III. ACPI ASL fragments
+  IV. Sample ACPI ASL fragmets
 
 I. Overview
 ===========
@@ -138,3 +139,53 @@ host you can run:
 The resulting dsdt.dsl contains ASL code of the DSDT table. By
 inspecting this DSDT you should be able to figure out where to connect
 your device.
+
+IV. Sample ACPI ASL fragments
+==============================
+
+Here is a description of the sample ACPI ASL fragments for each
+supported board. You can use these directly by just specifying the
+filename in ACPI_FRAGMENTS variable.
+
+All these live under recipes-bsp/acpi-fragments/samples directory.
+
+Galileo
+--------
+
+This is still work in progress.
+
+Minnowboard
+-----------
+
+  buttons.asl - Adds GPIO buttons device for all 4 buttons available
+                on the board.
+  leds.asl - Adds GPIO LEDs device for the two user programmable LEDs
+             available on the board and connects heartbeat and mmc
+             triggers to them.
+
+Minnowboard MAX
+---------------
+
+  at25.asl - Adds Atmel AT25 compatible 1k EEPROM device connected to
+             the first chip select on the SPI bus of the low speed
+             connector.
+  m25p80.asl - Adds M25P80 compatible SPI-NOR flash connected to the
+               first chip select on the SPI bus of the low speed
+               connector.
+  spidev.asl - Adds raw access SPI test device to the first chip select
+               on the SPI bus of the low speed connector.
+
+Joule
+-----
+
+  am2315.asl - Adds Aosong AM2315 temperature and humidity sensor to the
+               first I2C bus available on breakout #1 header.
+  at25.asl - Adds Atmel AT25 compatible 1k EEPROM device to the first
+             chip select on the SPI bus of breakout #1 header.
+  leds.asl - Adds GPIO LEDs device for all 4 user programmable LEDs on
+             the board. First and second LEDs have default triggers for
+             hearbeat and mmc respectively.
+  spidev-0.asl - Adds raw access SPI test device to the first chip
+                 select on the SPI bus of breakout #1 header.
+  spidev-2.asl - Adds raw access SPI test device to the third chip
+                 select on the SPI bus of breakout #1 header.
