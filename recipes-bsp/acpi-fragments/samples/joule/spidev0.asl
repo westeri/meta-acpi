@@ -2,13 +2,13 @@
  * Intel Joule
  *
  * This adds a SPI test device to the SPI host controller available on
- * Intel Joule breakout #1 header using chip select 2:
+ * Intel Joule breakout #1 header using chip select 0:
  *
  *   pin name           pin number
  *   -----------------------------
  *   SPI_1_MISO_LS      2
  *   SPI_1_MOSI_LS      4
- *   SPI_1_FS2_LS       8
+ *   SPI_1_FS0_LS       6
  *   SPI_1_CLK_LS       10
  *
  * In Linux you need to set CONFIG_SPI_SPIDEV=y (or m) to be able to use
@@ -34,7 +34,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("spidev-2.aml", "SSDT", 5, "", "SPIDEV2", 1)
+DefinitionBlock ("spidev0.aml", "SSDT", 5, "", "SPIDEV0", 1)
 {
     External (_SB_.PCI0.SPI2, DeviceObj)
 
@@ -43,10 +43,10 @@ DefinitionBlock ("spidev-2.aml", "SSDT", 5, "", "SPIDEV2", 1)
         Device (TP0)
         {
             Name (_HID, "SPT0001")
-            Name (_DDN, "SPI test device connected to CS2")
+            Name (_DDN, "SPI test device connected to CS0")
             Name (_CRS, ResourceTemplate () {
                 SpiSerialBus (
-                    2,                      // Chip select
+                    0,                      // Chip select
                     PolarityLow,            // Chip select is active low
                     FourWireMode,           // Full duplex
                     8,                      // Bits per word is 8 (byte)
