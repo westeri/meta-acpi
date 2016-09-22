@@ -1,8 +1,8 @@
 /*
  * Intel Galileo
  *
- * This adds raw SPI test device to the SPI host controller available on
- * Galileo J2B1 I/O connector:
+ * This adds Atmel AT25 compatible EEPROM to the SPI host controller
+ * available on Galileo J2B1 I/O connector:
  *
  *   pin name       pin number
  *   -------------------------
@@ -11,7 +11,7 @@
  *   IO12/MISO      5
  *   IO13/SCK       6
  *
- * In Linux you need to set CONFIG_SPI_SPIDEV=y (or m) to be able to use
+ * In Linux you need to set CONFIG_EEPROM_AT25=y (or m) to be able to use
  * this device.
  *
  * Copyright (C) 2016, Intel Corporation
@@ -34,16 +34,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("spidev.aml", "SSDT", 5, "", "SPIDEV", 1)
+DefinitionBlock ("at25.aml", "SSDT", 5, "", "AT25", 1)
 {
     #include "spi.asl"
 
     Scope (\_SB.PCI0.SPI1)
     {
-        Device (TP0)
-        {
-            Name (_HID, "SPT0001")
-            Name (_DDN, "SPI test device")
+        Device (EEP0) {
+            Name (_HID, "PRP0001")
+            Name (_DDN, "Atmel AT25 compatible EEPROM")
             Name (_CRS, ResourceTemplate () {
                 SpiSerialBus (
                     0,                      // Chip select
@@ -57,6 +56,20 @@ DefinitionBlock ("spidev.aml", "SSDT", 5, "", "SPIDEV", 1)
                     "\\_SB.PCI0.SPI1",      // SPI host controller
                     0                       // Must be 0
                 )
+            })
+
+            /*
+             * See Documentation/devicetree/bindings/eeprom/at25.txt for
+             * more information about these bindings.
+             */
+            Name (_DSD, Package () {
+                ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+                Package () {
+                    Package () {"compatible", "atmel,at25"},
+                    Package () {"size", 1024},
+                    Package () {"pagesize", 32},
+                    Package () {"address-width", 16},
+                }
             })
         }
     }

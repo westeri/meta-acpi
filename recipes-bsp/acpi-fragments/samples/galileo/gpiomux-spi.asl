@@ -1,8 +1,7 @@
 /*
  * Intel Galileo
  *
- * This adds raw SPI test device to the SPI host controller available on
- * Galileo J2B1 I/O connector:
+ * This muxes native SPI from following pins on Galileo J2B1 connector:
  *
  *   pin name       pin number
  *   -------------------------
@@ -10,9 +9,6 @@
  *   IO11/MOSI      4
  *   IO12/MISO      5
  *   IO13/SCK       6
- *
- * In Linux you need to set CONFIG_SPI_SPIDEV=y (or m) to be able to use
- * this device.
  *
  * Copyright (C) 2016, Intel Corporation
  *
@@ -34,30 +30,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("spidev.aml", "SSDT", 5, "", "SPIDEV", 1)
+DefinitionBlock ("gpiomux.aml", "SSDT", 5, "", "GPIOMUX", 1)
 {
-    #include "spi.asl"
-
-    Scope (\_SB.PCI0.SPI1)
-    {
-        Device (TP0)
-        {
-            Name (_HID, "SPT0001")
-            Name (_DDN, "SPI test device")
-            Name (_CRS, ResourceTemplate () {
-                SpiSerialBus (
-                    0,                      // Chip select
-                    PolarityLow,            // Chip select is active low
-                    FourWireMode,           // Full duplex
-                    8,                      // Bits per word is 8 (byte)
-                    ControllerInitiated,    // Don't care
-                    1000000,                // 1 MHz
-                    ClockPolarityLow,       // SPI mode 0
-                    ClockPhaseFirst,        // SPI mode 0
-                    "\\_SB.PCI0.SPI1",      // SPI host controller
-                    0                       // Must be 0
-                )
-            })
-        }
-    }
+    #define MUX_SPI
+    #include "gpiomux-base.asl"
 }

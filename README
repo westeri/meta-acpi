@@ -152,7 +152,24 @@ All these live under recipes-bsp/acpi-fragments/samples directory.
 Galileo
 --------
 
-This is still work in progress.
+Galileo has rather peculiar way of muxing pins. It uses several discreet
+mux chips and GPIOs to control them. We provide gpiomux-*.asl files
+which provide both names to GPIOs and pin muxing accordingly. User can
+select which buses are muxed on the pins of the board.
+
+  gpiomux.asl - Just adds names to GPIOs, no muxing is done.
+  gpiomux-i2c.asl - Adds names to GPIOs and muxes out native I2C.
+  gpiomux-spi.asl - Adds names to GPIOs and muxes out native SPI.
+  gpiomux-uart0.asl - Adds names to GPIOs and muxes out UART0.
+  gpiomux-i2c-spi-uart0.asl - Adds names to GPIOs and muxes out native
+                               I2C, SPI and UART0.
+  spidev.asl - Adds raw access SPI test device to the SPI bus using the
+               GPIO chip select.
+  at25.asl - Adds Atmel AT25 compatible 1k EEPROM device connected to
+             the GPIO chip select.
+
+Note this uses some features (like GPIO hogging) not yet available in
+the mainline kernel. We are working to get these upstreamed.
 
 Minnowboard
 -----------
