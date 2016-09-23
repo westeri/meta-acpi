@@ -1,0 +1,117 @@
+From 26093df93b7d02a01a4c39a7bb1bd113e27ec757 Mon Sep 17 00:00:00 2001
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+Date: Mon, 19 Sep 2016 18:05:55 +0300
+Subject: [PATCH 7/8] spi: Add GPIO descriptor support for chip selects
+
+Currently master->cs_gpios array holds legacy GPIO numbers which are parsed
+from DT and each driver handle requesting, releasing and toggling of those
+separately. If the spi_transfer_one_message() is used then core toggles the
+GPIO automatically.
+
+In order to support ACPI systems we add knowledge about GPIO descriptors to
+the SPI core. This co-exists with the DT implementation in a way that if
+the "cs-gpios" property exists in DT description legacy numbering is used.
+For ACPI systems (and perhaps DT in the future) we use GPIO descriptor APIs
+directly and request GPIOs for each SPI slave when they are added to the
+bus. In similar way the GPIO descriptor is released automatically when the
+device is removed from the bus.
+
+Toggling GPIOs is also handled automatically just like it is done for
+legacy GPIO numbers. Drivers not using the spi_transfer_one_message() can
+toggle the GPIO themselves by accessing spi->cs_gpiod field.
+
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+---
+ drivers/spi/spi.c       | 30 +++++++++++++++++++++++++++++-
+ include/linux/spi/spi.h |  5 +++++
+ 2 files changed, 34 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 200ca228d885..76e462e7d348 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -528,8 +528,17 @@ int spi_add_device(struct spi_device *spi)
+ 		goto done;
+ 	}
+ 
+-	if (master->cs_gpios)
++	if (master->cs_gpios) {
+ 		spi->cs_gpio = master->cs_gpios[spi->chip_select];
++	} else {
++		struct gpio_desc *desc;
++		enum gpiod_flags gf;
++
++		gf = spi->mode & SPI_CS_HIGH ? GPIOD_OUT_LOW : GPIOD_OUT_HIGH;
++		desc = gpiod_get_index(dev, "cs", spi->chip_select, gf);
++		if (!IS_ERR(desc))
++			spi->cs_gpiod = desc;
++	}
+ 
+ 	/* Drivers may modify this initial i/o setup, but will
+ 	 * normally rely on the device being setup.  Devices
+@@ -625,6 +634,9 @@ void spi_unregister_device(struct spi_device *spi)
+ 	if (ACPI_COMPANION(&spi->dev))
+ 		acpi_device_clear_enumerated(ACPI_COMPANION(&spi->dev));
+ 	device_unregister(&spi->dev);
++
++	if (spi->cs_gpiod)
++		gpiod_put(spi->cs_gpiod);
+ }
+ EXPORT_SYMBOL_GPL(spi_unregister_device);
+ 
+@@ -698,6 +710,8 @@ static void spi_set_cs(struct spi_device *spi, bool enable)
+ 
+ 	if (gpio_is_valid(spi->cs_gpio))
+ 		gpio_set_value(spi->cs_gpio, !enable);
++	else if (spi->cs_gpiod)
++		gpiod_set_value(spi->cs_gpiod, !enable);
+ 	else if (spi->master->set_cs)
+ 		spi->master->set_cs(spi, !enable);
+ }
+@@ -1880,6 +1894,20 @@ int spi_register_master(struct spi_master *master)
+ 	if (status)
+ 		return status;
+ 
++	/*
++	 * DT provides cs_gpios array which contains legacy GPIO numbers
++	 * for all GPIOs used as chip selects. If that is not populated we
++	 * try to use GPIO descriptors. We allocate and configure these
++	 * descriptors when a device using the GPIO in question is added to
++	 * the bus.
++	 */
++	if (!master->cs_gpios) {
++		int count = gpiod_count(dev, "cs");
++		if (count > 0)
++			master->num_chipselect = max_t(int, count,
++				master->num_chipselect);
++	}
++
+ 	/* even if it's just one always-selected device, there must
+ 	 * be at least one chipselect
+ 	 */
+diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
+index 072cb2aa2413..2ec12e8b6035 100644
+--- a/include/linux/spi/spi.h
++++ b/include/linux/spi/spi.h
+@@ -125,6 +125,10 @@ void spi_statistics_add_transfer_stats(struct spi_statistics *stats,
+  *	for driver coldplugging, and in uevents used for hotplugging
+  * @cs_gpio: gpio number of the chipselect line (optional, -ENOENT when
+  *	when not using a GPIO line)
++ * @cs_gpiod: GPIO descriptor of the chipselect line (or %NULL when not
++ *	using a GPIO line). The SPI core has requested this GPIO and will
++ *	handle everything including toggling it if the master uses the
++ *	default transfer implementation.
+  *
+  * @statistics: statistics for the spi_device
+  *
+@@ -165,6 +169,7 @@ struct spi_device {
+ 	void			*controller_data;
+ 	char			modalias[SPI_NAME_SIZE];
+ 	int			cs_gpio;	/* chip select gpio */
++	struct gpio_desc	*cs_gpiod;
+ 
+ 	/* the statistics */
+ 	struct spi_statistics	statistics;
+-- 
+2.9.3
+

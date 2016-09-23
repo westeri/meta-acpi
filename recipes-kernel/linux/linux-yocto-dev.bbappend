@@ -7,11 +7,11 @@ PR := "${PR}.1"
 KMETA_AUDIT = ""
 
 KERNEL_FEATURES_append = " cfg/smp.scc"
+KERNEL_FEATURES_append = " files/acpi.scc"
 
 # Add Minnowboard specific configuration
 SRC_URI_append_minnowboard = " file://minnowboard.cfg"
 
-SRC_URI += "file://acpi.cfg"
 SRC_URI += "file://buttons.cfg"
 SRC_URI += "file://leds.cfg"
 SRC_URI += "file://mtd.cfg"
