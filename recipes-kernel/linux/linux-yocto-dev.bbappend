@@ -2,9 +2,10 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 PR := "${PR}.1"
 
-COMPATIBLE_MACHINE_minnowboard = "minnowboard"
+# Make sure Yocto does not switch the branch back so that we don't lose
+# our patches.
+KMETA_AUDIT = ""
 
-KBRANCH = "standard/base"
 KERNEL_FEATURES_append = " cfg/smp.scc"
 
 # Add Minnowboard specific configuration
