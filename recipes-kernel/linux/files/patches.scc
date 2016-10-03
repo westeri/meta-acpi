@@ -1,5 +1,3 @@
-kconf hardware acpi.cfg
-
 patch 0001-pwm-pca9685-Allow-any-of-the-16-PWMs-to-be-used-as-a.patch
 patch 0002-ACPI-documentation-Use-recommended-name-in-GPIO-prop.patch
 patch 0003-ACPI-gpio-Add-support-for-naming-GPIOs.patch

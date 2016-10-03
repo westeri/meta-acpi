@@ -1,5 +1,6 @@
-# ACPI table upgrade was introduced in v4.6
-PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto-dev"
+PREFERRED_PROVIDER_virtual/kernel ?= "linux-kernel"
+# EFI capable systems do not require any special boot loader
+#EFI_PROVIDER ?= ""
 
 # Include ACPI ASL fragments with the initrd
 EXTRA_IMAGEDEPENDS_append = " acpi-fragments"
