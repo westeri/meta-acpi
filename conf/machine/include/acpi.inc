@@ -1,6 +1,6 @@
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-kernel"
 # EFI capable systems do not require any special boot loader
-#EFI_PROVIDER ?= ""
+EFI_PROVIDER ?= "edk2"
 
 # Include additional ACPI tables with the initrd
 EXTRA_IMAGEDEPENDS_append = " acpi-tables"
