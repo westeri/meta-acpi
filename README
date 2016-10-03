@@ -202,7 +202,7 @@ Joule
   leds.asl - Adds GPIO LEDs device for all 4 user programmable LEDs on
              the board. First and second LEDs have default triggers for
              hearbeat and mmc respectively.
-  spidev-0.asl - Adds raw access SPI test device to the first chip
-                 select on the SPI bus of breakout #1 header.
-  spidev-2.asl - Adds raw access SPI test device to the third chip
-                 select on the SPI bus of breakout #1 header.
+  spidev0.asl - Adds raw access SPI test device to the first chip
+                select on the SPI bus of breakout #1 header.
+  spidev2.asl - Adds raw access SPI test device to the third chip
+                select on the SPI bus of breakout #1 header.
