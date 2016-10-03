@@ -17,8 +17,8 @@ Table of Contents
 
   I. Overview
   II. Building the meta-intel-acpi BSP layer
-  III. ACPI ASL fragments
-  IV. Sample ACPI ASL fragmets
+  III. ACPI tables
+  IV. Sample ACPI tables
 
 I. Overview
 ===========
@@ -32,14 +32,13 @@ Minnowboard MAX has a low speed expansion connector providing access to
 I2C, SPI and UART buses. It is up to the developer to connect additional
 devices to the board.
 
-This layer makes it possible to include ACPI ASL fragments with the
-image. Each fragment contains description of one device connected to the
-board. The kernel loads these fragments during boot and is able to
-enumerate devices included in those.
+This layer makes it possible to include ACPI tables with the image. Each
+table contains description of one device connected to the board. The
+kernel loads these tables during boot and is able to enumerate devices
+included in those.
 
-We include sample ACPI ASL fragments for each board that can be used as
-base for the actual devices the developer wants to connect to these
-boards.
+We include sample ACPI tables for each board that can be used as base
+for the actual devices the developer wants to connect to these boards.
 
 II. Building the meta-intel-acpi BSP layer
 ===========================================
@@ -57,8 +56,8 @@ e.g.:
   /path/to/poky/meta-acpi \
 
 Currently supported boards include Galileo, Minnowboard, MinnowBoard MAX
-and Joule. You can pick the board including default ACPI ASL fragments
-by setting MACHINE in local.conf either of:
+and Joule. You can pick the board including default ACPI tables by
+setting MACHINE in local.conf either of:
 
   MACHINE = "galileo"
   MACHINE = "minnowboard"
@@ -83,21 +82,20 @@ something like this:
 You may need to run this as root using sudo but before doing that, make
 sure you have the right device in place of /dev/sdf.
 
-III. ACPI ASL fragments
-=======================
+III. ACPI tables
+================
 
-The recipes-bsp/acpi-fragments/samples/${MACHINE}/* includes sample ASL
-fragments for each board. The default configuration enables some of
-those. For example if you build for Minnowboard the
+The recipes-bsp/acpi-tables/samples/${MACHINE}/* includes sample ACPI
+tables for each board. The default configuration enables some of those.
+For example if you build for Minnowboard the
 conf/machine/minnowboard.conf has following line by default:
 
-  ACPI_FRAGMENTS ?= "buttons.asl leds.asl"
+  ACPI_TABLES ?= "buttons.asl leds.asl"
 
-This asks acpi-fragments package to include following sample ACPI ASL
-fragments:
+This asks acpi-tables package to include following sample ACPI tables:
 
-  recipes-bsp/acpi-fragments/samples/minnowboard/buttons.asl
-  recipes-bsp/acpi-fragments/samples/minnowboard/leds.asl
+  recipes-bsp/acpi-tables/samples/minnowboard/buttons.asl
+  recipes-bsp/acpi-tables/samples/minnowboard/leds.asl
 
 These effectively create two new devices: A GPIO Buttons input device
 and a GPIO LEDS device. When you an image created with this
@@ -105,13 +103,13 @@ configuration, you should see that the on board LED0 starts blinking
 approximately at human heartbeat rate. Also if you insert a SD-card, the
 LED1 on the board blinks as long as there is some I/O happening.
 
-You can use your own devices instead by overriding ACPI_FRAGMENTS in
+You can use your own devices instead by overriding ACPI_TABLES in
 your local.conf. For example we can add a custom device to our
 Minnowboard like:
 
-  ACPI_FRAGMENTS = "${TOPDIR}/acpi-fragments/device.asl"
+  ACPI_TABLES = "${TOPDIR}/acpi-tables/device.asl"
 
-This includes only device.asl and nothing more. Leaving ACPI_FRAGMENTS
+This includes only device.asl and nothing more. Leaving ACPI_TABLES
 empty means no devices will be added.
 
 When you are adding your own devices, it is important that you look at
@@ -140,14 +138,14 @@ The resulting dsdt.dsl contains ASL code of the DSDT table. By
 inspecting this DSDT you should be able to figure out where to connect
 your device.
 
-IV. Sample ACPI ASL fragments
-==============================
+IV. Sample ACPI tables
+======================
 
-Here is a description of the sample ACPI ASL fragments for each
-supported board. You can use these directly by just specifying the
-filename in ACPI_FRAGMENTS variable.
+Here is a description of the sample ACPI tables for each supported
+board. You can use these directly by just specifying the filename in
+ACPI_TABLES variable.
 
-All these live under recipes-bsp/acpi-fragments/samples directory.
+All these live under recipes-bsp/acpi-tables/samples directory.
 
 Galileo
 --------
