@@ -159,8 +159,8 @@ select which buses are muxed on the pins of the board.
   gpiomux-i2c.asl - Adds names to GPIOs and muxes out native I2C.
   gpiomux-spi.asl - Adds names to GPIOs and muxes out native SPI.
   gpiomux-uart0.asl - Adds names to GPIOs and muxes out UART0.
-  gpiomux-i2c-spi-uart0.asl - Adds names to GPIOs and muxes out native
-                               I2C, SPI and UART0.
+  gpiomux-all.asl - Adds names to GPIOs and muxes out native
+                    I2C, SPI and UART0.
   spidev.asl - Adds raw access SPI test device to the SPI bus using the
                GPIO chip select.
   at25.asl - Adds Atmel AT25 compatible 1k EEPROM device connected to
