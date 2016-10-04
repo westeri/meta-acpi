@@ -1,7 +1,7 @@
-From e3d5b07520bdc28232358519244ca2da990ddf21 Mon Sep 17 00:00:00 2001
+From ead25c8494ac4974815440a96515775e483a884b Mon Sep 17 00:00:00 2001
 From: Mika Westerberg <mika.westerberg@linux.intel.com>
 Date: Wed, 14 Sep 2016 00:03:21 +0300
-Subject: [PATCH 4/8] ACPI / gpio: Add hogging support
+Subject: [PATCH 5/8] ACPI / gpio: Add hogging support
 
 GPIO hogging means that the GPIO controller can "hog" and configure certain
 GPIOs without need for a driver or userspace to do that. This is useful in

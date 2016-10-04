@@ -1,7 +1,7 @@
-From 5124f53abf53772ad3f308d907f2e5324839f953 Mon Sep 17 00:00:00 2001
+From bd432d1a489f6f1ed8a45844549ac63fae0d42b6 Mon Sep 17 00:00:00 2001
 From: Mika Westerberg <mika.westerberg@linux.intel.com>
 Date: Wed, 14 Sep 2016 14:02:08 +0300
-Subject: [PATCH 3/8] ACPI / gpio: Add support for naming GPIOs
+Subject: [PATCH 4/8] ACPI / gpio: Add support for naming GPIOs
 
 DT has property 'gpio-line-names' to name GPIO lines the controller has if
 present. Use this very same property in ACPI as well to provide nice names

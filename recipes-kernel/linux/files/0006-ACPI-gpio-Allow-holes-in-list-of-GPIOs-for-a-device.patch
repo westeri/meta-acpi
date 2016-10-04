@@ -1,4 +1,4 @@
-From f763c7031e0e116a1d0baea7ddb26fc3f55b7551 Mon Sep 17 00:00:00 2001
+From 1b846874fd57ee7882287c5b699b243c588388f9 Mon Sep 17 00:00:00 2001
 From: Mika Westerberg <mika.westerberg@linux.intel.com>
 Date: Mon, 19 Sep 2016 15:33:57 +0300
 Subject: [PATCH 6/8] ACPI / gpio: Allow holes in list of GPIOs for a device
@@ -8,9 +8,9 @@ example a SPI master may use both GPIOs and native pins as chip selects and
 we need to be able to distinguish between the two.
 
 This makes it mandatory to have exactly 3 arguments for GPIOs and then
-converts gpiolib to use of acpi_node_get_property_reference_fixed_args()
-instead. In addition we make acpi_gpio_package_count() to handle holes as
-well (this matches the DT version).
+converts gpiolib to use of __acpi_node_get_property_reference() instead. In
+addition we make acpi_gpio_package_count() to handle holes as well (this
+matches the DT version).
 
 Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
 ---
@@ -45,7 +45,7 @@ index 46df91c3512b..2ccb70893122 100644
  --------------------------
  
 diff --git a/drivers/gpio/gpiolib-acpi.c b/drivers/gpio/gpiolib-acpi.c
-index 4e50f8f5d597..65c457b9541c 100644
+index 4e50f8f5d597..096a94ee96e7 100644
 --- a/drivers/gpio/gpiolib-acpi.c
 +++ b/drivers/gpio/gpiolib-acpi.c
 @@ -467,7 +467,8 @@ static int acpi_gpio_property_lookup(struct fwnode_handle *fwnode,
@@ -53,8 +53,8 @@ index 4e50f8f5d597..65c457b9541c 100644
  
  	memset(&args, 0, sizeof(args));
 -	ret = acpi_node_get_property_reference(fwnode, propname, index, &args);
-+	ret = acpi_node_get_property_reference_fixed_args(fwnode, propname,
-+							  index, 3, &args);
++	ret = __acpi_node_get_property_reference(fwnode, propname, index, 3,
++						 &args);
  	if (ret) {
  		struct acpi_device *adev = to_acpi_device_node(fwnode);
  

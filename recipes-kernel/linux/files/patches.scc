@@ -1,8 +1,8 @@
 patch 0001-pwm-pca9685-Allow-any-of-the-16-PWMs-to-be-used-as-a.patch
 patch 0002-ACPI-documentation-Use-recommended-name-in-GPIO-prop.patch
-patch 0003-ACPI-gpio-Add-support-for-naming-GPIOs.patch
-patch 0004-ACPI-gpio-Add-hogging-support.patch
-patch 0005-ACPI-property-Allow-holes-in-reference-properties.patch
+patch 0003-ACPI-property-Allow-holes-in-reference-properties.patch
+patch 0004-ACPI-gpio-Add-support-for-naming-GPIOs.patch
+patch 0005-ACPI-gpio-Add-hogging-support.patch
 patch 0006-ACPI-gpio-Allow-holes-in-list-of-GPIOs-for-a-device.patch
-patch 0007-spi-Add-GPIO-descriptor-support-for-chip-selects.patch
-patch 0008-spi-pxa2xx-Add-support-for-GPIO-chip-selects-provide.patch
+patch 0007-spi-pxa2xx-Add-support-for-GPIO-descriptor-chip-sele.patch
+patch 0008-spi-pxa2xx-Fix-build-error-because-of-missing-header.patch
