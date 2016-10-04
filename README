@@ -16,7 +16,7 @@ Table of Contents
 =================
 
   I. Overview
-  II. Building the meta-intel-acpi BSP layer
+  II. Building the meta-acpi BSP layer
   III. ACPI tables
   IV. Sample ACPI tables
 
@@ -40,7 +40,7 @@ included in those.
 We include sample ACPI tables for each board that can be used as base
 for the actual devices the developer wants to connect to these boards.
 
-II. Building the meta-intel-acpi BSP layer
+II. Building the meta-acpi BSP layer
 ===========================================
 
 This layer builds on top of meta-intel (see dependencies above) so you
@@ -48,8 +48,8 @@ need to download it first.
 
 Having done that, and assuming you extracted the BSP tarball contents at
 the top-level of your yocto build tree, you can build an image by adding
-the location of the meta-intel-acpi layer to bblayers.conf, along with
-any other layers needed (to access common metadata shared between BSPs)
+the location of the meta-acpi layer to bblayers.conf, along with any
+other layers needed (to access common metadata shared between BSPs)
 e.g.:
 
   /path/to/poky/meta-intel \
@@ -74,7 +74,7 @@ You should then be able to build an image as such:
 At the end of a successful build, you should have a live image that you
 can boot from a USB flash drive.
 
-In order to write the image to the USB flash driver, you can do
+In order to write the image to the USB flash drive, you can do
 something like this:
 
   % dd if=core-image-base-minnowboard.hddimg of=/dev/sdf bs=1M
