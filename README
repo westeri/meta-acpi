@@ -55,9 +55,9 @@ e.g.:
   /path/to/poky/meta-intel \
   /path/to/poky/meta-acpi \
 
-Currently supported boards include Galileo, Minnowboard, MinnowBoard MAX
-and Joule. You can pick the board including default ACPI tables by
-setting MACHINE in local.conf either of:
+Currently supported boards include Galileo, Minnowboard, MinnowBoard
+MAX, Minnowboard Turbot and Joule. You can pick the board including
+default ACPI tables by setting MACHINE in local.conf either of:
 
   MACHINE = "galileo"
   MACHINE = "minnowboard"
@@ -178,8 +178,8 @@ Minnowboard
              available on the board and connects heartbeat and mmc
              triggers to them.
 
-Minnowboard MAX
----------------
+Minnowboard MAX / Turbot
+------------------------
 
   at25.asl - Adds Atmel AT25 compatible 1k EEPROM device connected to
              the first chip select on the SPI bus of the low speed
@@ -189,6 +189,8 @@ Minnowboard MAX
                connector.
   spidev.asl - Adds raw access SPI test device to the first chip select
                on the SPI bus of the low speed connector.
+  leds.asl - Adds GPIO LEDs device for the D2 LED available on
+             Minnowboard Turbot.
 
 Joule
 -----
