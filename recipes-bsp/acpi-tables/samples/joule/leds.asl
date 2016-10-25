@@ -9,7 +9,7 @@
  *   -----------------------------------------
  *   ISH_GPIO_0_LS      35           heartbeat
  *   ISH_GPIO_1_LS      33           sd-card
- *   ISH_GPIO_2_LS      31           led-2
+ *   ISH_GPIO_2_LS      31           wifi
  *   ISH_GPIO_3_LS      29           led-3
  *
  * In Linux you need to set CONFIG_LEDS_GPIO=y (or m) to be able to use
@@ -107,9 +107,10 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
             Name (LED2, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"label", "led-2"},
+                    Package () {"label", "wifi"},
                     Package () {"gpios", Package () {^LEDS, 0, 2, 0}},
                     Package () {"linux,default-state", "off"},
+                    Package () {"linux,default-trigger", "phy0tx"},
                     Package () {"linux,retain-state-suspended", 1},
                 }
             })
