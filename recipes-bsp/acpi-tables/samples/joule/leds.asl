@@ -86,7 +86,7 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "heartbeat"},
-                    Package () {"gpios", Package () {^LEDS, 0, 0, 1}},
+                    Package () {"gpios", Package () {^LEDS, 0, 0, 0}},
                     Package () {"linux,default-state", "off"},
                     Package () {"linux,default-trigger", "heartbeat"},
                     Package () {"linux,retain-state-suspended", 1},
@@ -97,7 +97,7 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "sd-card"},
-                    Package () {"gpios", Package () {^LEDS, 0, 1, 1}},
+                    Package () {"gpios", Package () {^LEDS, 0, 1, 0}},
                     Package () {"linux,default-state", "off"},
                     Package () {"linux,default-trigger", "mmc0"},
                     Package () {"linux,retain-state-suspended", 1},
@@ -108,7 +108,7 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "led-2"},
-                    Package () {"gpios", Package () {^LEDS, 0, 2, 1}},
+                    Package () {"gpios", Package () {^LEDS, 0, 2, 0}},
                     Package () {"linux,default-state", "off"},
                     Package () {"linux,retain-state-suspended", 1},
                 }
@@ -118,7 +118,7 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "led-3"},
-                    Package () {"gpios", Package () {^LEDS, 0, 3, 1}},
+                    Package () {"gpios", Package () {^LEDS, 0, 3, 0}},
                     Package () {"linux,default-state", "off"},
                     Package () {"linux,retain-state-suspended", 1},
                 }
