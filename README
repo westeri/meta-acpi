@@ -199,6 +199,8 @@ Joule
                first I2C bus available on breakout #1 header.
   at25.asl - Adds Atmel AT25 compatible 1k EEPROM device to the first
              chip select on the SPI bus of breakout #1 header.
+  buttons.asl - Adds GPIO buttons device for the button labeled "GP BTN"
+                on the board.
   leds.asl - Adds GPIO LEDs device for all 4 user programmable LEDs on
              the board. First and second LEDs have default triggers for
              hearbeat and mmc respectively.
