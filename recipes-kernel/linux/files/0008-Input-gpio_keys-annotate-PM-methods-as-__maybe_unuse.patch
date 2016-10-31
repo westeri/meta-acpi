@@ -1,0 +1,48 @@
+From 15c4730b38fb2960dcafc45eec6a3dfc85cc59b9 Mon Sep 17 00:00:00 2001
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Fri, 28 Oct 2016 16:14:41 -0700
+Subject: [PATCH 08/11] Input: gpio_keys - annotate PM methods as
+ __maybe_unused
+
+Instead of using #ifdef, let's mark suspend and resume methods as
+__maybe_unused to provide better compile coverage.
+
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/keyboard/gpio_keys.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/gpio_keys.c
+index 890eb397d987..8f7c20b9cc5c 100644
+--- a/drivers/input/keyboard/gpio_keys.c
++++ b/drivers/input/keyboard/gpio_keys.c
+@@ -814,8 +814,7 @@ static int gpio_keys_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_PM_SLEEP
+-static int gpio_keys_suspend(struct device *dev)
++static int __maybe_unused gpio_keys_suspend(struct device *dev)
+ {
+ 	struct gpio_keys_drvdata *ddata = dev_get_drvdata(dev);
+ 	struct input_dev *input = ddata->input;
+@@ -837,7 +836,7 @@ static int gpio_keys_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int gpio_keys_resume(struct device *dev)
++static int __maybe_unused gpio_keys_resume(struct device *dev)
+ {
+ 	struct gpio_keys_drvdata *ddata = dev_get_drvdata(dev);
+ 	struct input_dev *input = ddata->input;
+@@ -863,7 +862,6 @@ static int gpio_keys_resume(struct device *dev)
+ 	gpio_keys_report_state(ddata);
+ 	return 0;
+ }
+-#endif
+ 
+ static SIMPLE_DEV_PM_OPS(gpio_keys_pm_ops, gpio_keys_suspend, gpio_keys_resume);
+ 
+-- 
+2.9.3
+

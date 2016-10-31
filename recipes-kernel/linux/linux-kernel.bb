@@ -15,12 +15,12 @@ SRC_URI_append_galileo = " file://galileo.cfg"
 SRC_URI_append_minnowboard = " file://minnowboard.cfg"
 SRC_URI_append_joule = " file://joule.cfg"
 
-LINUX_VERSION ?= "4.8"
+LINUX_VERSION ?= "4.9"
 
 # Modify SRCREV to a different commit hash in a copy of this recipe to
 # build a different release of the Linux kernel.
-# v4.8
-SRCREV = "c8d2bc9bc39ebea8437fd974fdbc21847bb897a3"
+# v4.9-rc3
+SRCREV = "a909d3e636995ba7c349e2ca5dbb528154d4ac30"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 

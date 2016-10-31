@@ -1,0 +1,55 @@
+From 8c3afc0825c51734ae7d6bc81dbf36a76e351142 Mon Sep 17 00:00:00 2001
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+Date: Fri, 21 Oct 2016 13:30:06 +0300
+Subject: [PATCH 05/11] ACPI / gpio: Add support for naming GPIOs
+
+Now that we have the new helper function that sets nice names for GPIO
+lines based on "gpio-line-names" device property, we can take advantage of
+this in acpi_gpiochip_add().
+
+Signed-off-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+---
+ Documentation/acpi/gpio-properties.txt | 12 ++++++++++++
+ drivers/gpio/gpiolib-acpi.c            |  3 +++
+ 2 files changed, 15 insertions(+)
+
+diff --git a/Documentation/acpi/gpio-properties.txt b/Documentation/acpi/gpio-properties.txt
+index ce7bc5c33c24..08fdc0ddee48 100644
+--- a/Documentation/acpi/gpio-properties.txt
++++ b/Documentation/acpi/gpio-properties.txt
+@@ -98,6 +98,18 @@ Example:
+       }
+   })
+ 
++- gpio-line-names
++
++Example:
++
++  Package () {
++      "gpio-line-names",
++      Package () {
++          "SPI0_CS_N", "EXP2_INT", "MUX6_IO", "UART0_RXD", "MUX7_IO",
++          "LVL_C_A1", "MUX0_IO", "SPI1_MISO"
++      }
++  }
++
+ See Documentation/devicetree/bindings/gpio/gpio.tx for more information
+ about these properties.
+ 
+diff --git a/drivers/gpio/gpiolib-acpi.c b/drivers/gpio/gpiolib-acpi.c
+index c6e3159a9fef..2d71ef66a435 100644
+--- a/drivers/gpio/gpiolib-acpi.c
++++ b/drivers/gpio/gpiolib-acpi.c
+@@ -960,6 +960,9 @@ void acpi_gpiochip_add(struct gpio_chip *chip)
+ 		return;
+ 	}
+ 
++	if (!chip->names)
++		devprop_gpiochip_set_names(chip);
++
+ 	acpi_gpiochip_request_regions(acpi_gpio);
+ 	acpi_gpiochip_scan_gpios(acpi_gpio);
+ 	acpi_walk_dep_device_list(handle);
+-- 
+2.9.3
+
