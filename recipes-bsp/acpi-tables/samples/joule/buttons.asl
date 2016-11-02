@@ -39,7 +39,7 @@ DefinitionBlock ("buttons.aml", "SSDT", 5, "", "BUTTONS", 1)
             Name (_DDN, "GPIO buttons device")
 
             Name (_CRS, ResourceTemplate () {
-                GpioIo (Exclusive, PullUp, 0, 0, IoRestrictionInputOnly,
+                GpioInt (Edge, ActiveBoth, ExclusiveAndWake, PullUp, 0,
                         "\\_SB.GPO0", 0) {17} // BTN_N
             })
 
