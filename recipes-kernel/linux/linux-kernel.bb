@@ -13,7 +13,6 @@ SRC_URI += "file://patches.scc"
 
 SRC_URI_append_galileo = " file://galileo.cfg"
 SRC_URI_append_minnowboard = " file://minnowboard.cfg"
-SRC_URI_append_joule = " file://joule.cfg"
 
 LINUX_VERSION ?= "4.9"
 
