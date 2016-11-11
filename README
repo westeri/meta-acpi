@@ -201,6 +201,8 @@ Joule
              chip select on the SPI bus of breakout #1 header.
   buttons.asl - Adds GPIO buttons device for the button labeled "GP BTN"
                 on the board.
+  i2c1.asl - Configures the first I2C bus to use 100 kHz standard mode
+             instead of the default 400 kHz.
   leds.asl - Adds GPIO LEDs device for all 4 user programmable LEDs on
              the board. First and second LEDs have default triggers for
              hearbeat and mmc respectively.
