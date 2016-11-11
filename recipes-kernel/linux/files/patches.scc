@@ -9,3 +9,4 @@ patch 0008-Input-gpio_keys-annotate-PM-methods-as-__maybe_unuse.patch
 patch 0009-Input-gpio_keys-fix-leaking-DT-node-references.patch
 patch 0010-Input-gpio_keys-add-support-for-GPIO-descriptors.patch
 patch 0011-Input-gpio_keys-switch-to-using-generic-device-prope.patch
+patch 0012-i2c-designware-Allow-reduce-bus-speed-by-clock-frequ.patch
