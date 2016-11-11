@@ -150,7 +150,7 @@ All these live under recipes-bsp/acpi-tables/samples directory.
 Galileo
 --------
 
-Galileo has rather peculiar way of muxing pins. It uses several discreet
+Galileo has rather peculiar way of muxing pins. It uses several discrete
 mux chips and GPIOs to control them. We provide gpiomux-*.asl files
 which provide both names to GPIOs and pin muxing accordingly. User can
 select which buses are muxed on the pins of the board.
