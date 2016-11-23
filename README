@@ -112,6 +112,14 @@ Minnowboard like:
 This includes only device.asl and nothing more. Leaving ACPI_TABLES
 empty means no devices will be added.
 
+When you make changes to the device.asl or edit the ACPI_TABLES variable,
+in order for the changes to take effect, you need to clean and rebuild
+core-image-base. Otherwise, the changes to acpi-tables are not copied
+to the initramfs on the image.
+
+  % bitbake -c clean core-image-base
+  % bitbake core-image-base
+
 When you are adding your own devices, it is important that you look at
 the original ACPI tables of the board in question. Typically host
 controllers, like SPI and I2C, might have different path from board to
