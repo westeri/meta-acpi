@@ -18,8 +18,8 @@ LINUX_VERSION ?= "4.9"
 
 # Modify SRCREV to a different commit hash in a copy of this recipe to
 # build a different release of the Linux kernel.
-# v4.9-rc5
-SRCREV = "a25f0944ba9b1d8a6813fd6f1a86f1bd59ac25a6"
+# v4.9-rc6
+SRCREV = "9c763584b7c8911106bb77af7e648bef09af9d80"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
