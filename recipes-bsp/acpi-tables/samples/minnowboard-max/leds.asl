@@ -72,7 +72,7 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "heartbeat"},
-                    Package () {"gpios", Package () {^LEDS, 0, 0, 0}},
+                    Package () {"gpios", Package () {^LEDS, 0, 0, 1}},
                     Package () {"linux,default-state", "off"},
                     Package () {"linux,default-trigger", "heartbeat"},
                     Package () {"linux,retain-state-suspended", 1},
