@@ -9,16 +9,15 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;prot
 KCONFIG_MODE = "--alldefconfig"
 
 SRC_URI += "file://defconfig"
-SRC_URI += "file://patches.scc"
 
 SRC_URI_append_galileo = " file://galileo.cfg"
 SRC_URI_append_minnowboard = " file://minnowboard.cfg"
 
-LINUX_VERSION ?= "4.9"
+LINUX_VERSION ?= "4.11-rc4"
 
 # Modify SRCREV to a different commit hash in a copy of this recipe to
 # build a different release of the Linux kernel.
-SRCREV = "69973b830859bc6529a7a0468ba0d80ee5117826"
+SRCREV = "c02ed2e75ef4c74e41e421acb4ef1494671585e8"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
