@@ -10,6 +10,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/BSD;md5=377548
 
 DEPENDS = "acpica-native"
 
+B = "${WORKDIR}/acpi-tables"
+
 inherit deploy
 
 ACPI_TABLES ?= ""
@@ -35,6 +37,17 @@ do_compile() {
 		iasl -p ${WORKDIR}/acpi-tables/kernel/firmware/acpi/$dest_table $table
 	done
 }
+
+do_install() {
+
+	install -d ${D}/kernel/firmware/acpi
+	for table in ${ACPI_TABLES}; do
+		dest_table=$(basename $table asl)
+		install -m 644 ${B}/kernel/firmware/acpi/${dest_table}aml ${D}/kernel/firmware/acpi/${dest_table}aml
+	done
+}
+
+FILES_${PN} = "/kernel/firmware/acpi"
 
 do_deploy() {
 	cd ${WORKDIR}/acpi-tables
