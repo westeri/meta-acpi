@@ -31,5 +31,5 @@
 DefinitionBlock ("gpiomux.aml", "SSDT", 5, "", "GPIOMUX", 1)
 {
     #define MUX_UART0
-    #include "gpiomux-base.asl"
+    #include "gpiomux.asli"
 }

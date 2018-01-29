@@ -36,7 +36,7 @@
  */
 DefinitionBlock ("spidev.aml", "SSDT", 5, "", "SPIDEV", 1)
 {
-    #include "spi.asl"
+    #include "spi.asli"
 
     Scope (\_SB.PCI0.SPI1)
     {

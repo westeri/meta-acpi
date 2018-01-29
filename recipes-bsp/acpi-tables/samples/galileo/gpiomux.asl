@@ -25,5 +25,5 @@
  */
 DefinitionBlock ("gpiomux.aml", "SSDT", 5, "", "GPIOMUX", 1)
 {
-    #include "gpiomux-base.asl"
+    #include "gpiomux.asli"
 }

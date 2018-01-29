@@ -33,5 +33,5 @@
 DefinitionBlock ("gpiomux.aml", "SSDT", 5, "", "GPIOMUX", 1)
 {
     #define MUX_SPI
-    #include "gpiomux-base.asl"
+    #include "gpiomux.asli"
 }

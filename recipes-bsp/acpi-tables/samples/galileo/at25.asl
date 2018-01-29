@@ -36,7 +36,7 @@
  */
 DefinitionBlock ("at25.aml", "SSDT", 5, "", "AT25", 1)
 {
-    #include "spi.asl"
+    #include "spi.asli"
 
     Scope (\_SB.PCI0.SPI1)
     {
