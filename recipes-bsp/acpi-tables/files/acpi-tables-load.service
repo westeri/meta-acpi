@@ -1,0 +1,10 @@
+[Unit]
+Description=ACPI tables load service
+
+[Service]
+ExecStart=/usr/bin/acpi-tables-load
+Restart=on-failure
+
+[Install]
+WantedBy=basic.target
+
