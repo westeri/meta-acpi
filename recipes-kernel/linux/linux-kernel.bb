@@ -13,11 +13,11 @@ SRC_URI += "file://defconfig"
 SRC_URI_append_galileo = " file://galileo.cfg"
 SRC_URI_append_minnowboard = " file://minnowboard.cfg"
 
-LINUX_VERSION ?= "4.11-rc4"
+LINUX_VERSION ?= "4.14"
 
 # Modify SRCREV to a different commit hash in a copy of this recipe to
 # build a different release of the Linux kernel.
-SRCREV = "c02ed2e75ef4c74e41e421acb4ef1494671585e8"
+SRCREV = "bebc6082da0a9f5d47a1ea2edc099bf671058bd4"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
