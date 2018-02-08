@@ -10,6 +10,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/BSD;md5=377548
 
 DEPENDS = "acpica-native"
 
+FILESEXTRAPATHS_prepend := "${THISDIR}/files/${BPN}:"
+
 SRC_URI = "\
 	file://acpi-tables-load.service \
 	file://acpi-tables-load \
@@ -18,6 +20,8 @@ SRC_URI = "\
 B = "${WORKDIR}/acpi-tables"
 
 inherit deploy
+
+RDEPENDS_${PN}_edison = "libgpiod"
 
 ACPI_TABLES ?= ""
 ACPI_TABLES[doc] = "List of ACPI tables to include with the initrd"
