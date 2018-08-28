@@ -18,8 +18,8 @@ DEPENDS = "bison flex"
 
 SRC_URI = "https://acpica.org/sites/acpica/files/acpica-unix2-${PV}.tar.gz \
     "
-SRC_URI[md5sum] = "5aa086f71f4b5273c0932a1e04419a37"
-SRC_URI[sha256sum] = "d1e26cdde58938653a277a5ca59ce1df045508d345fee13fed2eaacc6ef51851"
+SRC_URI[md5sum] = "0ea9047bf15dfdf3583f5266cc6da718"
+SRC_URI[sha256sum] = "8f939ad6130862e05853837496500b3fb93037530e5ea0ca0298458522ffc2c7"
 UPSTREAM_CHECK_URI = "https://acpica.org/downloads"
 
 S = "${WORKDIR}/acpica-unix2-${PV}"
