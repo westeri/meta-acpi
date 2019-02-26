@@ -1,0 +1,51 @@
+/*
+ * Intel Edison
+ *
+ * This adds 16x2 HD44780 Character LCD to the GPIOs available
+ * on Intel Edison/Arduino header.
+ *
+ * In Linux you need to set CONFIG_HD44780=y (or m)
+ * to be able to use this device.
+ *
+ * Include this file from an ASL providing SSDT DefinitionBlock.
+ */
+External (_SB_, DeviceObj)
+
+Scope (\_SB)
+{
+    Device (LCD0) {
+        Name (_HID, "PRP0001")
+        Name (_DDN, "HD44780 Character LCD")
+        Name (_CRS, ResourceTemplate () {
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 129, 128, 131, 130 }
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 13 }
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 12 }
+        })
+
+        /*
+         * See Documentation/devicetree/bindings/auxdisplay/hit,hd44780.txt
+         * for more information about these bindings.
+         */
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () { "compatible", Package () { "hit,hd44780" } },
+                Package () { "display-height-chars", 2 },
+                Package () { "display-width-chars", 16 },
+                Package () {
+                    "data-gpios", Package () {
+                        ^LCD0, 0, 0, 0,
+                        ^LCD0, 0, 1, 0,
+                        ^LCD0, 0, 2, 0,
+                        ^LCD0, 0, 3, 0,
+                    },
+                },
+                Package () { "enable-gpios", Package () { ^LCD0, 1, 0, 0 } },
+                Package () { "rs-gpios", Package () { ^LCD0, 2, 0, 0 } },
+            }
+        })
+    }
+}
