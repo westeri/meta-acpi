@@ -1,0 +1,67 @@
+/*
+ * Intel Edison
+ *
+ * This adds Microchip ENC28J60 ethernet to the SPI host controller
+ * available on Intel Edison/Arduino board.
+ *
+ * In Linux you need to set CONFIG_ENC28J60=y (or m) to be able
+ * to use this device.
+ *
+ * Copyright (C) 2019, Intel Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Include this file from an ASL providing SSDT DefinitionBlock.
+ */
+External (_SB_.PCI0.SPI5, DeviceObj)
+
+Scope (\_SB.PCI0.SPI5)
+{
+    Device (ETH0) {
+        Name (_HID, "PRP0001")
+        Name (_DDN, "Microchip ENC28J60 ethernet")
+        Name (_CRS, ResourceTemplate () {
+            SpiSerialBus (
+                1,                      // Chip select
+                PolarityLow,            // Chip select is active low
+                FourWireMode,           // Full duplex
+                8,                      // Bits per word is 8 (byte)
+                ControllerInitiated,    // Don't care
+                5000000,                // 5 MHz
+                ClockPolarityLow,       // SPI mode 0
+                ClockPhaseFirst,        // SPI mode 0
+                "\\_SB.PCI0.SPI5",      // SPI host controller
+                0                       // Must be 0
+            )
+            GpioInt(Edge, ActiveLow, Exclusive, PullNone, 0,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 48 }
+        })
+
+        /*
+         * See Documentation/devicetree/bindings/net/microchip,enc28j60.txt
+         * for more information about these bindings.
+         */
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () { "compatible", Package () { "microchip,enc28j60" } },
+            }
+        })
+    }
+}

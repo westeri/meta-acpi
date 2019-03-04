@@ -1,0 +1,117 @@
+/*
+ * Intel Edison
+ *
+ * Provides GPIO expanders and names for all GPIO pins.
+ *
+ * Copyright (C) 2017, Intel Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Include this file from an ASL providing SSDT DefinitionBlock.
+ */
+
+Device (NIO1)
+{
+    Name (_HID, "INT3491")
+    Name (_CID, "INT3491")
+    Name (_UID, One)
+    Name (RBUF, ResourceTemplate()
+    {
+        I2cSerialBusV2(0x0020, ControllerInitiated, 400000,
+            AddressingMode7Bit, "\\_SB.PCI0.I2C1",
+            0x00, ResourceConsumer, , Exclusive, )
+        GpioInt(Level, ActiveLow, Exclusive, PullDefault, 0x0000,
+            "\\_SB.PCI0.GPIO", 0x00, ResourceConsumer, , ) { 15 }
+    })
+    Method (_CRS, 0, NotSerialized)
+    {
+        Return (RBUF)
+    }
+
+    Method (_STA, 0, NotSerialized)
+    {
+        Return (0x0F)
+    }
+}
+
+Device (NIO2)
+{
+    Name (_HID, "INT3491")
+    Name (_CID, "INT3491")
+    Name (_UID, 0x02)
+    Name (RBUF, ResourceTemplate()
+    {
+        I2cSerialBusV2(0x0021, ControllerInitiated, 400000,
+            AddressingMode7Bit, "\\_SB.PCI0.I2C1",
+            0x00, ResourceConsumer, , Exclusive, )
+    })
+    Method (_CRS, 0, NotSerialized)
+    {
+        Return (RBUF)
+    }
+
+    Method (_STA, 0, NotSerialized)
+    {
+        Return (0x0F)
+    }
+}
+
+Device (NIO3)
+{
+    Name (_HID, "INT3491")
+    Name (_CID, "INT3491")
+    Name (_UID, 0x03)
+    Name (RBUF, ResourceTemplate()
+    {
+        I2cSerialBusV2(0x0022, ControllerInitiated, 400000,
+            AddressingMode7Bit, "\\_SB.PCI0.I2C1",
+            0x00, ResourceConsumer, , Exclusive, )
+    })
+    Method (_CRS, 0, NotSerialized)
+    {
+        Return (RBUF)
+    }
+
+    Method (_STA, 0, NotSerialized)
+    {
+        Return (0x0F)
+    }
+}
+
+Device (NIO4)
+{
+    Name (_HID, "INT3491")
+    Name (_CID, "INT3491")
+    Name (_UID, 0x04)
+    Name (RBUF, ResourceTemplate()
+    {
+        I2cSerialBusV2(0x0023, ControllerInitiated, 400000,
+            AddressingMode7Bit, "\\_SB.PCI0.I2C1",
+            0x00, ResourceConsumer, , Exclusive, )
+    })
+    Method (_CRS, 0, NotSerialized)
+    {
+        Return (RBUF)
+    }
+
+    Method (_STA, 0, NotSerialized)
+    {
+        Return (0x0F)
+    }
+}

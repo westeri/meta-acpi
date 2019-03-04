@@ -1,0 +1,684 @@
+/*
+ * Intel Edison
+ *
+ * Provides support for devices found on Intel Edison/Arduino board.
+ *
+ * Copyright (C) 2017, Intel Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/*
+ * Some preprocessor magic to convert the symbol to either 0 or 1 so that
+ * preprocessor #if works properly.
+ */
+#ifdef MUX_I2C
+#undef MUX_I2C
+#define MUX_I2C 1
+#else
+#define MUX_I2C 0
+#endif
+
+#ifdef MUX_SPI
+#undef MUX_SPI
+#define MUX_SPI 1
+#else
+#define MUX_SPI 0
+#endif
+
+#ifdef MUX_UART_2WIRE
+#undef MUX_UART_2WIRE
+#define MUX_UART_2WIRE 1
+#else
+#define MUX_UART_2WIRE 0
+#endif
+
+#ifdef MUX_UART_4WIRE
+#undef MUX_UART_4WIRE
+#define MUX_UART_4WIRE 1
+#else
+#define MUX_UART_4WIRE 0
+#endif
+
+#if MUX_UART_2WIRE || MUX_UART_4WIRE
+#define MUX_UART 1
+#else
+#define MUX_UART 0
+#endif
+
+/* Sanity checks */
+#if MUX_UART_2WIRE && MUX_UART_4WIRE
+#warning "UART muxing is ambiguous, switching to 4 wire mode..."
+#undef MUX_UART_2WIRE
+#define MUX_UART_2WIRE 0
+#endif
+
+#ifdef CONF_DIG7_PU_PD
+#define DIG7_PU_PD 1
+#else
+#define DIG7_PU_PD 0
+#endif
+
+#if DIG7_PU_PD
+#define MUX_NIO2 1
+#else
+#define MUX_NIO2 0
+#endif
+
+#ifdef CONF_MUX21_DIR
+#define MUX21_DIR 1
+#else
+#define MUX21_DIR 0
+#endif
+
+#ifdef CONF_MUX32_DIR
+#define MUX32_DIR 1
+#else
+#define MUX32_DIR 0
+#endif
+
+#ifdef CONF_MUX28_DIR
+#define MUX28_DIR 1
+#else
+#define MUX28_DIR 0
+#endif
+
+#if MUX21_DIR || MUX32_DIR || MUX28_DIR
+#define MUX_NIO4 1
+#else
+#define MUX_NIO4 0
+#endif
+
+External (_SB_.PCI0.I2C1, DeviceObj)
+
+Scope (\_SB.PCI0.I2C1)
+{
+    #include "gpioexp.asli"
+
+    // GPIO expander (U17)
+    Scope (NIO1)
+    {
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {
+                    "gpio-line-names",
+                    Package () {
+                       "MUX15_SEL",
+                       "MUX13_SEL",
+                       "MUX11_SEL",
+                       "MUX9_SEL",
+                       "MUX7_SEL",
+                       "MUX5_SEL",
+                       "U17_IO0.6",
+                       "SHLD_RESET0",
+                       "A0_PU_PD",
+                       "A1_PU_PD",
+                       "A2_PU_PD",
+                       "A3_PU_PD",
+                       "A4_PU_PD",
+                       "A5_PU_PD",
+                       "TRI_STATE_ALL",
+                       "SHLD_RESET1",
+                    }
+                },
+            },
+#if MUX_I2C
+            ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
+            Package () {
+#if MUX_I2C
+                Package () {"i2c6-sda-mux", IDMX},
+                Package () {"i2c6-scl-mux", ICMX},
+                Package () {"i2c6-sda-pu", IDPU},
+                Package () {"i2c6-scl-pu", ICPU},
+#endif
+            }
+#endif
+        })
+#if MUX_I2C
+        Name (IDMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {4, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2c6-sda-mux"},
+            }
+        })
+
+        Name (ICMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {5, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2c6-scl-mux"},
+            }
+        })
+
+        Name (IDPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {12, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "i2c6-sda-pu"},
+            }
+        })
+
+        Name (ICPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {13, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "i2c6-scl-pu"},
+            }
+        })
+#endif
+    }
+
+    // GPIO expander (U39)
+    Scope (NIO2)
+    {
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {
+                    "gpio-line-names",
+                    Package () {
+                       "DIG0_PU_PD",
+                       "DIG1_PU_PD",
+                       "DIG2_PU_PD",
+                       "DIG3_PU_PD",
+                       "DIG4_PU_PD",
+                       "DIG5_PU_PD",
+                       "DIG6_PU_PD",
+                       "DIG7_PU_PD",
+                       "DIG8_PU_PD",
+                       "DIG9_PU_PD",
+                       "DIG10_PU_PD",
+                       "DIG11_PU_PD",
+                       "DIG12_PU_PD",
+                       "DIG13_PU_PD",
+                       "U39_IO1.6",
+                       "U39_IO1.7",
+                    }
+                },
+            },
+#if MUX_SPI || MUX_UART || MUX_NIO2
+            ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
+            Package () {
+#if MUX_UART
+                Package () {"uart1-rx-pu", URPU},
+                Package () {"uart1-tx-pu", UTPU},
+#if MUX_UART_4WIRE
+                Package () {"uart1-cts-pu", UCUD},
+                Package () {"uart1-rts-pu", URUD},
+#endif
+#endif
+#if DIG7_PU_PD
+                DIG7_PU_PD_REF
+#endif
+#if MUX_SPI
+                Package () {"ssp5-fs1-pu", SSPU},
+                Package () {"ssp5-txd-pu", STPU},
+                Package () {"ssp5-rxd-pu", SRPU},
+                Package () {"ssp5-clk-pu", SCPU},
+#endif
+            }
+#endif
+        })
+#if MUX_UART
+        Name (URPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {0, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "uart1-rx-pu"},
+            }
+        })
+
+        Name (UTPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {1, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "uart1-tx-pu"},
+            }
+        })
+
+#if MUX_UART_4WIRE
+        Name (UCUD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {2, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "uart1-cts-pu"},
+            }
+        })
+
+        Name (URUD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {4, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "uart1-rts-pu"},
+            }
+        })
+#endif
+#endif
+#if DIG7_PU_PD
+        DIG7_PU_PD_HOG
+#endif
+#if MUX_SPI
+        Name (SSPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {10, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "ssp5-fs1-pu"},
+            }
+        })
+
+        Name (STPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {11, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "ssp5-txd-pu"},
+            }
+        })
+
+        Name (SRPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {12, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "ssp5-rxd-pu"},
+            }
+        })
+
+        Name (SCPU, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {13, 0}},
+                Package () {"input", 1},
+                Package () {"line-name", "ssp5-clk-pu"},
+            }
+        })
+#endif
+    }
+
+    // GPIO expander (U16)
+    Scope (NIO3)
+    {
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {
+                    "gpio-line-names",
+                    Package () {
+                       "MUX14_DIR",
+                       "MUX12_DIR",
+                       "MUX10_DIR",
+                       "MUX8_DIR",
+                       "MUX6_DIR",
+                       "MUX4_DIR",
+                       "U16_IO0.6",
+                       "U16_IO0.7",
+                       "SPI_FS_SEL",
+                       "SPI_TXD_SEL",
+                       "SPI_RXD_SEL",
+                       "SPI_CLK_SEL",
+                       "U16_IO1.4",
+                       "U16_IO1.5",
+                       "U16_IO1.6",
+                       "U16_IO1.7",
+                    }
+                },
+            },
+#if MUX_I2C || MUX_SPI
+            ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
+            Package () {
+#if MUX_I2C
+                Package () {"i2c6-sda-mux", IDMX},
+                Package () {"i2c6-scl-mux", ICMX},
+#endif
+#if MUX_SPI
+                Package () {"ssp5-fs1-mux", SSMX},
+                Package () {"ssp5-txd-mux", STMX},
+                Package () {"ssp5-rxd-mux", SRMX},
+                Package () {"ssp5-clk-mux", SCMX},
+#endif
+            }
+#endif
+        })
+#if MUX_I2C
+        Name (IDMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {4, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2c6-sda-mux"},
+            }
+        })
+
+        Name (ICMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {5, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2c6-scl-mux"},
+            }
+        })
+#endif
+#if MUX_SPI
+        Name (SSMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {8, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-fs1-mux"},
+            }
+        })
+
+        Name (STMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {9, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-txd-mux"},
+            }
+        })
+
+        Name (SRMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {10, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-rxd-mux"},
+            }
+        })
+
+        Name (SCMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {11, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-clk-mux"},
+            }
+        })
+#endif
+    }
+
+    // GPIO expander (U34)
+    Scope (NIO4)
+    {
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {
+                    "gpio-line-names",
+                    Package () {
+                       "MUX33_DIR",
+                       "MUX31_DIR",
+                       "MUX29_DIR",
+                       "MUX27_DIR",
+                       "MUX24_DIR",
+                       "MUX21_DIR",
+                       "MUX19_DIR",
+                       "MUX32_DIR",
+                       "MUX30_DIR",
+                       "MUX28_DIR",
+                       "MUX26_DIR",
+                       "MUX23_DIR",
+                       "MUX20_DIR",
+                       "MUX18_DIR",
+                       "MUX22_SEL",
+                       "MUX25_SEL",
+                    }
+                },
+            },
+#if MUX_SPI || MUX_UART || MUX_NIO4
+            ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
+            Package () {
+#if MUX_UART
+                Package () {"uart1-rx-oe", UROE},
+                Package () {"uart1-tx-oe", UTOE},
+#if MUX_UART_4WIRE
+                Package () {"uart1-cts-oe", UCEN},
+                Package () {"uart1-rts-oe", UREN},
+#endif
+#endif
+#if MUX21_DIR
+                MUX21_DIR_REF
+#endif
+#if MUX32_DIR
+                MUX32_DIR_REF
+#endif
+#if MUX28_DIR
+                MUX28_DIR_REF
+#endif
+#if MUX_SPI
+                Package () {"ssp5-fs1-oe", SSOE},
+                Package () {"ssp5-txd-oe", STOE},
+                Package () {"ssp5-rxd-oe", SROE},
+                Package () {"ssp5-clk-oe", SCOE},
+                Package () {"ssp5-txd-mux", STMX},
+                Package () {"ssp5-fs1-mux", SSMX},
+#endif
+            }
+#endif
+        })
+#if MUX_UART
+        Name (UROE, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {0, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "uart1-rx-oe"},
+            }
+        })
+
+        Name (UTOE, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {1, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "uart1-tx-oe"},
+            }
+        })
+
+#if MUX_UART_4WIRE
+        Name (UCEN, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {2, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "uart-cts-oe"},
+            }
+        })
+
+        Name (UREN, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {4, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "uart1-rts-oe"},
+            }
+        })
+#endif
+#endif
+
+#if MUX21_DIR
+        MUX21_DIR_HOG
+#endif
+
+#if MUX32_DIR
+        MUX32_DIR_HOG
+#endif
+
+#if MUX28_DIR
+        MUX28_DIR_HOG
+#endif
+
+#if MUX_SPI
+        Name (SSOE, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {10, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-fs1-oe"},
+            }
+        })
+
+        Name (STOE, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {11, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-txd-oe"},
+            }
+        })
+
+        Name (SROE, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {12, 0}},
+                Package () {"output-low", 1},
+                Package () {"line-name", "ssp5-rxd-oe"},
+            }
+        })
+
+        Name (SCOE, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {13, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-clk-oe"},
+            }
+        })
+
+        Name (STMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {14, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-txd-mux"},
+            }
+        })
+
+        Name (SSMX, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {"gpio-hog", 1},
+                Package () {"gpios", Package () {15, 0}},
+                Package () {"output-high", 1},
+                Package () {"line-name", "ssp5-fs1-mux"},
+            }
+        })
+#endif
+    }
+}
+
+/* Texas Instruments ADS7950 family of A/DC chips */
+#include "ads7951.asli"
+
+External (_SB_.PCI0.PWM0, DeviceObj)
+
+Scope (\_SB.PCI0.PWM0)
+{
+    Name (RBUF, ResourceTemplate ()
+    {
+        PinFunction(Exclusive, PullUp, 0x0001,
+            "\\_SB.FLIS", 0, ResourceConsumer, , ) { 144 }
+        PinFunction(Exclusive, PullUp, 0x0001,
+            "\\_SB.FLIS", 0, ResourceConsumer, , ) { 145 }
+        PinFunction(Exclusive, PullUp, 0x0001,
+            "\\_SB.FLIS", 0, ResourceConsumer, , ) { 132 }
+        PinFunction(Exclusive, PullUp, 0x0001,
+            "\\_SB.FLIS", 0, ResourceConsumer, , ) { 133 }
+    })
+    Method (_CRS, 0, NotSerialized)
+    {
+        Return (RBUF)
+    }
+}
+
+External (_SB_.PCI0, DeviceObj)
+
+Scope (\_SB.PCI0)
+{
+    Device (SPI6)
+    {
+        Name (_ADR, 0x00070002)
+        Name (RBUF, ResourceTemplate()
+        {
+            PinFunction(Exclusive, PullUp, 0x0001,
+                "\\_SB.FLIS", 0, ResourceConsumer, , ) { 97, 100, 99 }
+            GpioIo(Exclusive, PullUp, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 117 }
+        })
+
+        Method (_CRS, 0, NotSerialized)
+        {
+            Return (RBUF)
+        }
+
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () {
+                    "cs-gpios", Package () {
+                        ^SPI6, 0, 0, 0,
+                    },
+                },
+            }
+        })
+
+        Method (_STA, 0, NotSerialized)
+        {
+            Return (0xF)
+        }
+    }
+}
