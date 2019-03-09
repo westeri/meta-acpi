@@ -29,20 +29,20 @@ DefinitionBlock ("adafruit.aml", "SSDT", 5, "", "ADAFRUIT", 1)
     #define MUX_I2C
     #define MUX_SPI
 
-#define DIG7_PU_PD_HOG	Name (TSPU, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 7, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "ts-pu" }, } })
-#define DIG7_PU_PD_REF	Package () { "ts-pu", TSPU },
+#define DIG7_PU_PD_HOG	Name (TSPU, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 7, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "touchscreen-pu" }, } })
+#define DIG7_PU_PD_REF	Package () { "touchscreen-pu", TSPU },
 #define CONF_DIG7_PU_PD
 
-#define MUX32_DIR_HOG	Name (TSMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 7, 0 } }, Package () { "output-low", 1 }, Package () { "line-name", "ts-mux" }, } })
-#define MUX32_DIR_REF	Package () { "ts-mux", TSMX },
+#define MUX32_DIR_HOG	Name (TSMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 7, 0 } }, Package () { "output-low", 1 }, Package () { "line-name", "touchscreen-mux" }, } })
+#define MUX32_DIR_REF	Package () { "touchscreen-mux", TSMX },
 #define CONF_MUX32_DIR
 
-#define MUX21_DIR_HOG	Name (BLMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 5, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "bl-mux" }, } })
-#define MUX21_DIR_REF	Package () { "bl-mux", BLMX },
+#define MUX21_DIR_HOG	Name (BLMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 5, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "backlight-mux" }, } })
+#define MUX21_DIR_REF	Package () { "backlight-mux", BLMX },
 #define CONF_MUX21_DIR
 
-#define MUX28_DIR_HOG	Name (DCMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 9, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "dc-mux" }, } })
-#define MUX28_DIR_REF	Package () { "dc-mux", DCMX },
+#define MUX28_DIR_HOG	Name (DCMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 9, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "data-cmd-mux" }, } })
+#define MUX28_DIR_REF	Package () { "data-cmd-mux", DCMX },
 #define CONF_MUX28_DIR
 
     #include "arduino.asli"
