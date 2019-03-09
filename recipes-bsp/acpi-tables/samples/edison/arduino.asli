@@ -81,6 +81,36 @@
 #define MUX_NIO2 0
 #endif
 
+#ifdef CONF_MUX33_DIR
+#define MUX33_DIR 1
+#else
+#define MUX33_DIR 0
+#endif
+
+#ifdef CONF_MUX31_DIR
+#define MUX31_DIR 1
+#else
+#define MUX31_DIR 0
+#endif
+
+#ifdef CONF_MUX29_DIR
+#define MUX29_DIR 1
+#else
+#define MUX29_DIR 0
+#endif
+
+#ifdef CONF_MUX27_DIR
+#define MUX27_DIR 1
+#else
+#define MUX27_DIR 0
+#endif
+
+#ifdef CONF_MUX24_DIR
+#define MUX24_DIR 1
+#else
+#define MUX24_DIR 0
+#endif
+
 #ifdef CONF_MUX21_DIR
 #define MUX21_DIR 1
 #else
@@ -99,10 +129,20 @@
 #define MUX28_DIR 0
 #endif
 
-#if MUX21_DIR || MUX32_DIR || MUX28_DIR
+#if MUX33_DIR || MUX31_DIR || MUX29_DIR || MUX27_DIR	\
+    MUX24_DIR || MUX21_DIR || MUX32_DIR || MUX28_DIR
 #define MUX_NIO4 1
 #else
 #define MUX_NIO4 0
+#endif
+
+/* Sanity checks */
+#if MUX_UART_2WIRE && (MUX33_DIR || MUX31_DIR)
+#error "UART can't be enabled with RxD/TxD pins set to GPIO function"
+#endif
+
+#if MUX_UART_4WIRE && (MUX29_DIR || MUX24_DIR)
+#error "UART can't be enabled with RTS/CTS pins set to GPIO function"
 #endif
 
 External (_SB_.PCI0.I2C1, DeviceObj)
@@ -481,6 +521,21 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"uart1-rts-oe", UREN},
 #endif
 #endif
+#if MUX33_DIR
+                MUX33_DIR_REF
+#endif
+#if MUX31_DIR
+                MUX31_DIR_REF
+#endif
+#if MUX29_DIR
+                MUX29_DIR_REF
+#endif
+#if MUX27_DIR
+                MUX27_DIR_REF
+#endif
+#if MUX24_DIR
+                MUX24_DIR_REF
+#endif
 #if MUX21_DIR
                 MUX21_DIR_REF
 #endif
@@ -543,6 +598,26 @@ Scope (\_SB.PCI0.I2C1)
             }
         })
 #endif
+#endif
+
+#if MUX33_DIR
+        MUX33_DIR_HOG
+#endif
+
+#if MUX31_DIR
+        MUX31_DIR_HOG
+#endif
+
+#if MUX29_DIR
+        MUX29_DIR_HOG
+#endif
+
+#if MUX27_DIR
+        MUX27_DIR_HOG
+#endif
+
+#if MUX24_DIR
+        MUX24_DIR_HOG
 #endif
 
 #if MUX21_DIR
