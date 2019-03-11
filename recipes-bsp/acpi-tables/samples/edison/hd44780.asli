@@ -4,6 +4,16 @@
  * This adds 16x2 HD44780 Character LCD to the GPIOs available
  * on Intel Edison/Arduino header.
  *
+ * Arduino pin		LCD pin
+ * -----------		-------
+ *	IO0		DB7 (14)
+ *	IO1		DB6 (13)
+ *	IO2		DB5 (12)
+ *	IO4		DB4 (11)
+ *	IO3		RS (4)
+ *	GND		R/W (5)
+ *	IO5		E (6)
+ *
  * In Linux you need to set CONFIG_HD44780=y (or m)
  * to be able to use this device.
  *
