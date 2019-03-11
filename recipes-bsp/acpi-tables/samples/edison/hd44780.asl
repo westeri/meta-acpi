@@ -27,27 +27,27 @@ DefinitionBlock ("hd44780.aml", "SSDT", 5, "", "HD44780", 1)
     #define MUX_SPI
 
 #define MUX33_DIR_HOG	Name (D7MX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 0, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "LCD-data7-mux" }, } })
-#define MUX33_DIR_REF	Package () { "LCD-data7-mux", D7MX },
+#define MUX33_DIR_REF	Package () { "LCD-data7-mux", "D7MX" },
 #define CONF_MUX33_DIR
 
 #define MUX31_DIR_HOG	Name (D6MX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 1, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "LCD-data6-mux" }, } })
-#define MUX31_DIR_REF	Package () { "LCD-data6-mux", D6MX },
+#define MUX31_DIR_REF	Package () { "LCD-data6-mux", "D6MX" },
 #define CONF_MUX31_DIR
 
 #define MUX29_DIR_HOG	Name (D5MX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 2, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "LCD-data5-mux" }, } })
-#define MUX29_DIR_REF	Package () { "LCD-data5-mux", D5MX },
+#define MUX29_DIR_REF	Package () { "LCD-data5-mux", "D5MX" },
 #define CONF_MUX29_DIR
 
 #define MUX24_DIR_HOG	Name (D4MX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 4, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "LCD-data4-mux" }, } })
-#define MUX24_DIR_REF	Package () { "LCD-data4-mux", D4MX },
+#define MUX24_DIR_REF	Package () { "LCD-data4-mux", "D4MX" },
 #define CONF_MUX24_DIR
 
 #define MUX21_DIR_HOG	Name (LEMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 5, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "LCD-ena-mux" }, } })
-#define MUX21_DIR_REF	Package () { "LCD-ena-mux", LEMX },
+#define MUX21_DIR_REF	Package () { "LCD-ena-mux", "LEMX" },
 #define CONF_MUX21_DIR
 
 #define MUX27_DIR_HOG	Name (RSMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 3, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "LCD-rs-mux" }, } })
-#define MUX27_DIR_REF	Package () { "LCD-rs-mux", RSMX },
+#define MUX27_DIR_REF	Package () { "LCD-rs-mux", "RSMX" },
 #define CONF_MUX27_DIR
 
     #include "arduino.asli"

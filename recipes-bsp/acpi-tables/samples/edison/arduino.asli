@@ -183,10 +183,10 @@ Scope (\_SB.PCI0.I2C1)
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_I2C
-                Package () {"i2c6-sda-mux", IDMX},
-                Package () {"i2c6-scl-mux", ICMX},
-                Package () {"i2c6-sda-pu", IDPU},
-                Package () {"i2c6-scl-pu", ICPU},
+                Package () {"i2c6-sda-mux", "IDMX"},
+                Package () {"i2c6-scl-mux", "ICMX"},
+                Package () {"i2c6-sda-pu", "IDPU"},
+                Package () {"i2c6-scl-pu", "ICPU"},
 #endif
             }
 #endif
@@ -266,21 +266,21 @@ Scope (\_SB.PCI0.I2C1)
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_UART
-                Package () {"uart1-rx-pu", URPU},
-                Package () {"uart1-tx-pu", UTPU},
+                Package () {"uart1-rx-pu", "URPU"},
+                Package () {"uart1-tx-pu", "UTPU"},
 #if MUX_UART_4WIRE
-                Package () {"uart1-cts-pu", UCUD},
-                Package () {"uart1-rts-pu", URUD},
+                Package () {"uart1-cts-pu", "UCUD"},
+                Package () {"uart1-rts-pu", "URUD"},
 #endif
 #endif
 #if DIG7_PU_PD
                 DIG7_PU_PD_REF
 #endif
 #if MUX_SPI
-                Package () {"ssp5-fs1-pu", SSPU},
-                Package () {"ssp5-txd-pu", STPU},
-                Package () {"ssp5-rxd-pu", SRPU},
-                Package () {"ssp5-clk-pu", SCPU},
+                Package () {"ssp5-fs1-pu", "SSPU"},
+                Package () {"ssp5-txd-pu", "STPU"},
+                Package () {"ssp5-rxd-pu", "SRPU"},
+                Package () {"ssp5-clk-pu", "SCPU"},
 #endif
             }
 #endif
@@ -406,14 +406,14 @@ Scope (\_SB.PCI0.I2C1)
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_I2C
-                Package () {"i2c6-sda-mux", IDMX},
-                Package () {"i2c6-scl-mux", ICMX},
+                Package () {"i2c6-sda-mux", "IDMX"},
+                Package () {"i2c6-scl-mux", "ICMX"},
 #endif
 #if MUX_SPI
-                Package () {"ssp5-fs1-mux", SSMX},
-                Package () {"ssp5-txd-mux", STMX},
-                Package () {"ssp5-rxd-mux", SRMX},
-                Package () {"ssp5-clk-mux", SCMX},
+                Package () {"ssp5-fs1-mux", "SSMX"},
+                Package () {"ssp5-txd-mux", "STMX"},
+                Package () {"ssp5-rxd-mux", "SRMX"},
+                Package () {"ssp5-clk-mux", "SCMX"},
 #endif
             }
 #endif
@@ -514,11 +514,11 @@ Scope (\_SB.PCI0.I2C1)
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_UART
-                Package () {"uart1-rx-oe", UROE},
-                Package () {"uart1-tx-oe", UTOE},
+                Package () {"uart1-rx-oe", "UROE"},
+                Package () {"uart1-tx-oe", "UTOE"},
 #if MUX_UART_4WIRE
-                Package () {"uart1-cts-oe", UCEN},
-                Package () {"uart1-rts-oe", UREN},
+                Package () {"uart1-cts-oe", "UCEN"},
+                Package () {"uart1-rts-oe", "UREN"},
 #endif
 #endif
 #if MUX33_DIR
@@ -546,12 +546,12 @@ Scope (\_SB.PCI0.I2C1)
                 MUX28_DIR_REF
 #endif
 #if MUX_SPI
-                Package () {"ssp5-fs1-oe", SSOE},
-                Package () {"ssp5-txd-oe", STOE},
-                Package () {"ssp5-rxd-oe", SROE},
-                Package () {"ssp5-clk-oe", SCOE},
-                Package () {"ssp5-txd-mux", STMX},
-                Package () {"ssp5-fs1-mux", SSMX},
+                Package () {"ssp5-fs1-oe", "SSOE"},
+                Package () {"ssp5-txd-oe", "STOE"},
+                Package () {"ssp5-rxd-oe", "SROE"},
+                Package () {"ssp5-clk-oe", "SCOE"},
+                Package () {"ssp5-txd-mux", "STMX"},
+                Package () {"ssp5-fs1-mux", "SSMX"},
 #endif
             }
 #endif

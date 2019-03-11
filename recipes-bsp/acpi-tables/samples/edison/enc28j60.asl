@@ -29,11 +29,11 @@ DefinitionBlock ("enc28j60.aml", "SSDT", 5, "", "ENC28J60", 1)
     #define MUX_SPI
 
 #define DIG7_PU_PD_HOG	Name (ETPU, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 7, 0 } }, Package () { "output-high", 1 }, Package () { "line-name", "eth-pu" }, } })
-#define DIG7_PU_PD_REF	Package () { "eth-pu", ETPU },
+#define DIG7_PU_PD_REF	Package () { "eth-pu", "ETPU" },
 #define CONF_DIG7_PU_PD
 
 #define MUX32_DIR_HOG	Name (ETMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 7, 0 } }, Package () { "output-low", 1 }, Package () { "line-name", "eth-mux" }, } })
-#define MUX32_DIR_REF	Package () { "eth-mux", ETMX },
+#define MUX32_DIR_REF	Package () { "eth-mux", "ETMX" },
 #define CONF_MUX32_DIR
 
     #include "arduino.asli"
