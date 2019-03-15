@@ -270,6 +270,8 @@ defines have already been set and ACPI_FEATURES_edison should be unset:
 ACPI_FEATURES_edison = ""
 
 Chainloadable:
+  74x164.asl -  This adds 74X164 8-bits shift register GPIO expander to the SPI
+                host controller available on Edison I/O connector.
   arduino.asl - Adds Edison/Arduino board external muxes and level translators
                 and depending on defines enables UART in 2W or 4W mode,
                 I2C-6 and SPI.
