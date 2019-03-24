@@ -21,7 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("arduino.aml", "SSDT", 5, "", "ARDUINO", 1)
+DefinitionBlock ("ds2-led.aml", "SSDT", 5, "", "DS2-LED", 1)
 {
     #include "arduino.asli"
+    #include "leds.asli"
 }

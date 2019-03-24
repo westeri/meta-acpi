@@ -1,0 +1,10 @@
+#!/bin/sh
+# This script copies all ACPI tables into /kernel/firmware/acpi
+# You must have configfs enabled for this to work
+
+    for TABLE in `find /kernel/firmware/acpi/ -type f -name "*.aml"  2>/dev/null`; do
+        dest_dir=$(basename $TABLE .aml)
+        mkdir /sys/kernel/config/acpi/table/$dest_dir
+        cat $TABLE > /sys/kernel/config/acpi/table/$dest_dir/aml
+    done
+

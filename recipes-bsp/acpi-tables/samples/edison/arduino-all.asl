@@ -23,5 +23,9 @@
  */
 DefinitionBlock ("arduino.aml", "SSDT", 5, "", "ARDUINO", 1)
 {
+    #define MUX_I2C
+    #define MUX_SPI
+    #define MUX_UART_4WIRE
+
     #include "arduino.asli"
 }
