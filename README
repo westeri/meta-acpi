@@ -24,7 +24,7 @@ I. Overview
 ===========
 
 This layer provides extended support for Intel ACPI enabled development
-boards such as Minnowboard, Minnowboard MAX, Galileo and Joule.
+boards such as Minnowboard, Minnowboard MAX, Galileo, Joule and Edison*).
 
 The driving force here is that the BIOS shipped with these boards cannot
 possibly support all possible devices you can connect them. For example
@@ -39,6 +39,11 @@ included in those.
 
 We include sample ACPI tables for each board that can be used as base
 for the actual devices the developer wants to connect to these boards.
+
+*) Edison does not ship with a BIOS. Certain ACPI tables are provided
+through U-Boot instead. To take advantage of the tables from meta-acpi
+you need to add a BSP providing U-Boot >= 2019.04-rc2 and linux >= 5.0.0
+both configured for Edison. 
 
 II. Building the meta-acpi BSP layer
 ===========================================
@@ -56,15 +61,16 @@ e.g.:
   /path/to/poky/meta-acpi \
 
 Currently supported boards include Galileo, Minnowboard, MinnowBoard
-MAX, Minnowboard Turbot and Joule. You can pick the board including
+MAX, Minnowboard Turbot, Joule and Edison. You can pick the board including
 default ACPI tables by setting MACHINE in local.conf either of:
 
   MACHINE = "galileo"
   MACHINE = "minnowboard"
   MACHINE = "minnowboard-max"
   MACHINE = "joule"
+  MACHINE = "edison"
 
-Depending on the board.
+Depending on the board*).
 
 You should then be able to build an image as such:
 
@@ -81,6 +87,18 @@ something like this:
 
 You may need to run this as root using sudo but before doing that, make
 sure you have the right device in place of /dev/sdf.
+
+*) As for Edison you need to add the bsp layer, which will build several
+artefacts as U-Boot, kernel with initramfs, building and flashing involve
+additional steps depending on the tool you use. A suitable layer that
+provides a bsp and a rootfs is meta-intel-edison as found here:
+
+  https://github.com/edison-fw/meta-intel-edison
+  
+Detailed instructions for building and flashing from this layer can be 
+found here:
+
+  https://edison-fw.github.io/meta-intel-edison/
 
 III. ACPI tables
 ================
@@ -163,7 +181,22 @@ mux chips and GPIOs to control them. We provide gpiomux-*.asl files
 which provide both names to GPIOs and pin muxing accordingly. User can
 select which buses are muxed on the pins of the board.
 
-  gpiomux.asl - Just adds names to GPIOs, no muxing is done.
+On Galileo we can define an additional variable:
+
+ACPI_FEATURES ?= ""
+
+ *   MUX_I2C - This muxes out I2C from SCL/SDA pins of the board
+ *   MUX_SPI - This muxes out SPI from pins I010/IO11/IO12/IO13 of the board
+ *   MUX_UART0 - This muxes out UART0 from pins IO0/IO1
+ *   MUX_UART1 - This muxes out UART1 from pins IO2/IO3
+
+Depending on the features set (i2c, spi, uart0) `iasl` will compile the 
+asl with certain defines set 'MUX_UART0', 'MUX_I2C', 'MUX_SPI'.
+This allows selecting features for tables from a higher level layer
+by setting ACPI_FEATURES in the conf file.
+
+  gpiomux.asl - Just adds names to GPIOs, no muxing is done, unless selected
+                by ACPI_FEATURES
   gpiomux-i2c.asl - Adds names to GPIOs and muxes out native I2C.
   gpiomux-spi.asl - Adds names to GPIOs and muxes out native SPI.
   gpiomux-uart0.asl - Adds names to GPIOs and muxes out UART0.
@@ -220,3 +253,47 @@ Joule
                 select on the SPI bus of breakout #1 header.
   spidev2.asl - Adds raw access SPI test device to the third chip
                 select on the SPI bus of breakout #1 header.
+
+Edison
+------
+
+On Edison we define an additional variable:
+
+ACPI_FEATURES_edison ?= "uart_2w spi i2c"
+
+Depending on the features set `iasl` will compile the asl with certain
+defines set 'MUX_UART_2WIRE', MUX_UART_4WIRE', 'MUX_I2C', 'MUX_SPI'.
+This works will when building chainloadable tables. For the solution
+tables (combination of multiple function into one table), suitable
+defines have already been set and ACPI_FEATURES_edison should be unset:
+
+ACPI_FEATURES_edison = ""
+
+Chainloadable:
+  arduino.asl - Adds Edison/Arduino board external muxes and level translators
+                and depending on defines enables UART in 2W or 4W mode,
+                I2C-6 and SPI.
+  leds.asl -    Requires arduino.asl without "spi". Without this table
+                the Edison-Arduino ds2 LED can be toggled from user space,
+                with this table is controlled by the kernel. The default
+                trigger is 'heartbeat'.
+  spidev.asl -  This adds raw SPI test device to the SPI host controller
+                available on Edison I/O connector.
+  pca9633.asl - This adds NXP PCA9633 LED to the I2C6 bus available on
+                Edison/Arduino header. Requires arduino.asl.
+  
+Solution:
+  adafruit.asl - Provides support for Adafruit 2.8" TFT display with 
+                capacitive touchscreen and micro-SD card slot on Edison/Arduino
+                board with I2c and SPI enabled.
+  arduino-all.asl - Adds arduino board external muxes and level translators
+                with enabled UART in 4W mode, I2C-6 and SPI.
+  ds2-led.asl - Combined arduino and leds in one solution table. By default
+                no defines are set.
+  enc28j60.asl - Combined arduino with support for Microchip ENC28J60 ethernet on
+                Edison/Arduino board with SPI enabled.
+  hd44780.asl - Combined arduino with support for 16x2 HD44780 Character LCD 
+                to the GPIOs available on Edison/Arduino header with I2C and SPI
+                enabled.
+
+  
