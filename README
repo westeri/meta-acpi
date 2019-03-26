@@ -277,10 +277,10 @@ Chainloadable:
                 the Edison-Arduino ds2 LED can be toggled from user space,
                 with this table is controlled by the kernel. The default
                 trigger is 'heartbeat'.
-  spidev.asl -  This adds raw SPI test device to the SPI host controller
-                available on Edison I/O connector.
   pca9633.asl - This adds NXP PCA9633 LED to the I2C6 bus available on
                 Edison/Arduino header. Requires arduino.asl.
+  spidev.asl -  This adds raw SPI test device to the SPI host controller
+                available on Edison I/O connector.
 
 Solution:
   adafruit.asl - Provides support for Adafruit 2.8" TFT display with
