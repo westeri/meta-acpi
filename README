@@ -43,7 +43,7 @@ for the actual devices the developer wants to connect to these boards.
 *) Edison does not ship with a BIOS. Certain ACPI tables are provided
 through U-Boot instead. To take advantage of the tables from meta-acpi
 you need to add a BSP providing U-Boot >= 2019.04-rc2 and linux >= 5.0.0
-both configured for Edison. 
+both configured for Edison.
 
 II. Building the meta-acpi BSP layer
 ===========================================
@@ -94,8 +94,8 @@ additional steps depending on the tool you use. A suitable layer that
 provides a bsp and a rootfs is meta-intel-edison as found here:
 
   https://github.com/edison-fw/meta-intel-edison
-  
-Detailed instructions for building and flashing from this layer can be 
+
+Detailed instructions for building and flashing from this layer can be
 found here:
 
   https://edison-fw.github.io/meta-intel-edison/
@@ -190,7 +190,7 @@ ACPI_FEATURES ?= ""
  *   MUX_UART0 - This muxes out UART0 from pins IO0/IO1
  *   MUX_UART1 - This muxes out UART1 from pins IO2/IO3
 
-Depending on the features set (i2c, spi, uart0) `iasl` will compile the 
+Depending on the features set (i2c, spi, uart0) `iasl` will compile the
 asl with certain defines set 'MUX_UART0', 'MUX_I2C', 'MUX_SPI'.
 This allows selecting features for tables from a higher level layer
 by setting ACPI_FEATURES in the conf file.
@@ -281,9 +281,9 @@ Chainloadable:
                 available on Edison I/O connector.
   pca9633.asl - This adds NXP PCA9633 LED to the I2C6 bus available on
                 Edison/Arduino header. Requires arduino.asl.
-  
+
 Solution:
-  adafruit.asl - Provides support for Adafruit 2.8" TFT display with 
+  adafruit.asl - Provides support for Adafruit 2.8" TFT display with
                 capacitive touchscreen and micro-SD card slot on Edison/Arduino
                 board with I2c and SPI enabled.
   arduino-all.asl - Adds arduino board external muxes and level translators
@@ -292,8 +292,6 @@ Solution:
                 no defines are set.
   enc28j60.asl - Combined arduino with support for Microchip ENC28J60 ethernet on
                 Edison/Arduino board with SPI enabled.
-  hd44780.asl - Combined arduino with support for 16x2 HD44780 Character LCD 
+  hd44780.asl - Combined arduino with support for 16x2 HD44780 Character LCD
                 to the GPIOs available on Edison/Arduino header with I2C and SPI
                 enabled.
-
-  
