@@ -183,20 +183,20 @@ Scope (\_SB.NIO1)
         ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
         Package () {
 #if MUX_SPI
-            Package () {"spi-mosi-oe", SMOE},
-            Package () {"spi-mosi-pu", SMPU},
-            Package () {"spi-cs-oe", SSOE},
-            Package () {"spi-cs-pu", SSPU},
-            Package () {"spi-sck-oe", SCOE},
-            Package () {"spi-sck-pu", SCPU},
+            Package () {"spi-mosi-oe", "SMOE"},
+            Package () {"spi-mosi-pu", "SMPU"},
+            Package () {"spi-cs-oe", "SSOE"},
+            Package () {"spi-cs-pu", "SSPU"},
+            Package () {"spi-sck-oe", "SCOE"},
+            Package () {"spi-sck-pu", "SCPU"},
 #endif
 #if MUX_UART0
-            Package () {"uart0-tx-oe", U0OE},
-            Package () {"uart0-tx-pu", U0PU},
+            Package () {"uart0-tx-oe", "U0OE"},
+            Package () {"uart0-tx-pu", "U0PU"},
 #endif
 #if MUX_UART1
-            Package () {"uart1-tx-oe", U1OE},
-            Package () {"uart1-tx-pu", U1PU},
+            Package () {"uart1-tx-oe", "U1OE"},
+            Package () {"uart1-tx-pu", "U1PU"},
 #endif
         }
 #endif
@@ -348,19 +348,19 @@ Scope (\_SB.NIO2)
         ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
         Package () {
 #if MUX_SPI
-            Package () {"spi-miso-oe", SMOE},
-            Package () {"spi-miso-pu", SMPU},
-            Package () {"spi-mosi-mux", SMMX},
-            Package () {"spi-sck-mux", SCMX},
+            Package () {"spi-miso-oe", "SMOE"},
+            Package () {"spi-miso-pu", "SMPU"},
+            Package () {"spi-mosi-mux", "SMMX"},
+            Package () {"spi-sck-mux", "SCMX"},
 #endif
 #if MUX_UART0
-            Package () {"uart0-rx-oe", U0OE},
-            Package () {"uart0-rx-pu", U0PU},
-            Package () {"uart0-tx-mux", U0MX},
+            Package () {"uart0-rx-oe", "U0OE"},
+            Package () {"uart0-rx-pu", "U0PU"},
+            Package () {"uart0-tx-mux", "U0MX"},
 #endif
 #if MUX_UART1
-            Package () {"uart1-rx-oe", U1OE},
-            Package () {"uart1-rx-pu", U1PU},
+            Package () {"uart1-rx-oe", "U1OE"},
+            Package () {"uart1-rx-pu", "U1PU"},
 #endif
         }
 #endif
@@ -497,7 +497,7 @@ Scope (\_SB.NIO3)
 #if MUX_I2C
         ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
         Package () {
-            Package () {"i2c-amux1-in", I2MX},
+            Package () {"i2c-amux1-in", "I2MX"},
         }
 #endif
     })
@@ -547,11 +547,11 @@ Scope (\_SB.PWM1)
         ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
         Package () {
 #if MUX_SPI
-            Package () {"spi-cs-mux", SSMX},
+            Package () {"spi-cs-mux", "SSMX"},
 #endif
 #if MUX_UART1
-            Package () {"uart1-tx-mux", U1TX},
-            Package () {"uart1-rx-mux", U1RX},
+            Package () {"uart1-tx-mux", "U1TX"},
+            Package () {"uart1-rx-mux", "U1RX"},
 #endif
         }
 #endif
