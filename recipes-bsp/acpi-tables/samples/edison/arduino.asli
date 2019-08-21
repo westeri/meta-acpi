@@ -81,6 +81,18 @@
 #define MUX_NIO2 0
 #endif
 
+#ifdef CONF_SPI_CLK_SEL
+#define SPI_CLK_SEL 1
+#else
+#define SPI_CLK_SEL 0
+#endif
+
+#if SPI_CLK_SEL
+#define MUX_NIO3 1
+#else
+#define MUX_NIO3 0
+#endif
+
 #ifdef CONF_MUX33_DIR
 #define MUX33_DIR 1
 #else
@@ -129,7 +141,13 @@
 #define MUX28_DIR 0
 #endif
 
-#if MUX33_DIR || MUX31_DIR || MUX29_DIR || MUX27_DIR || MUX24_DIR || MUX21_DIR || MUX32_DIR || MUX28_DIR
+#ifdef CONF_MUX18_DIR
+#define MUX18_DIR 1
+#else
+#define MUX18_DIR 0
+#endif
+
+#if MUX33_DIR || MUX31_DIR || MUX29_DIR || MUX27_DIR || MUX24_DIR || MUX21_DIR || MUX32_DIR || MUX28_DIR || MUX18_DIR
 #define MUX_NIO4 1
 #else
 #define MUX_NIO4 0
@@ -142,6 +160,10 @@
 
 #if MUX_UART_4WIRE && (MUX29_DIR || MUX24_DIR)
 #error "UART can't be enabled with RTS/CTS pins set to GPIO function"
+#endif
+
+#if MUX_SPI && (SPI_CLK_SEL || MUX18_DIR)
+#error "SPI can't be enabled with CLK pin set to GPIO function"
 #endif
 
 External (_SB_.PCI0.I2C1, DeviceObj)
@@ -401,12 +423,15 @@ Scope (\_SB.PCI0.I2C1)
                     }
                 },
             },
-#if MUX_I2C || MUX_SPI
+#if MUX_I2C || MUX_SPI || MUX_NIO3
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_I2C
                 Package () {"i2c6-sda-mux", "IDMX"},
                 Package () {"i2c6-scl-mux", "ICMX"},
+#endif
+#if SPI_CLK_SEL
+                SPI_CLK_SEL_REF
 #endif
 #if MUX_SPI
                 Package () {"ssp5-fs1-mux", "SSMX"},
@@ -438,6 +463,11 @@ Scope (\_SB.PCI0.I2C1)
             }
         })
 #endif
+
+#if SPI_CLK_SEL
+        SPI_CLK_SEL_HOG
+#endif
+
 #if MUX_SPI
         Name (SSMX, Package () {
             ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
@@ -544,6 +574,9 @@ Scope (\_SB.PCI0.I2C1)
 #if MUX28_DIR
                 MUX28_DIR_REF
 #endif
+#if MUX18_DIR
+                MUX18_DIR_REF
+#endif
 #if MUX_SPI
                 Package () {"ssp5-fs1-oe", "SSOE"},
                 Package () {"ssp5-txd-oe", "STOE"},
@@ -629,6 +662,10 @@ Scope (\_SB.PCI0.I2C1)
 
 #if MUX28_DIR
         MUX28_DIR_HOG
+#endif
+
+#if MUX18_DIR
+        MUX18_DIR_HOG
 #endif
 
 #if MUX_SPI
