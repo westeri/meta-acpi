@@ -8,7 +8,7 @@ do_populate_lic[depends] += "virtual/kernel:do_patch"
 
 inherit linux-kernel-base kernelsrc
 
-EXTRA_OEMAKE += "-C ${S}/tools/power/acpi/tools/acpidump CC='${CC}' LD='${CCLD}' CROSS_COMPILE=${TARGET_PREFIX} DESTDIR=${D}" 
+EXTRA_OEMAKE += "-C ${S}/tools/power/acpi/tools/acpidump CC='${CC}' LD='${CCLD}' CROSS_COMPILE=${TARGET_PREFIX} DESTDIR=${D}"
 
 do_compile() {
 	oe_runmake all
