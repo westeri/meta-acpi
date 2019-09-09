@@ -9,7 +9,7 @@
  *
  * Include this file from an ASL providing SSDT DefinitionBlock.
  */
-External (_SB_.PCI0.I2C6, DeviceObj)
+External (\_SB_.PCI0.I2C6, DeviceObj)
 
 Scope (\_SB.PCI0.I2C6)
 {

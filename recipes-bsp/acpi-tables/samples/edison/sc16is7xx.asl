@@ -34,7 +34,7 @@
  */
 DefinitionBlock ("serial.aml", "SSDT", 5, "", "SERIAL", 1)
 {
-    External (_SB_.PCI0.I2C6, DeviceObj)
+    External (\_SB_.PCI0.I2C6, DeviceObj)
 
     Scope (\_SB.PCI0.I2C6)
     {

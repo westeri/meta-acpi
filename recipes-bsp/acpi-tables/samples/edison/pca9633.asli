@@ -7,7 +7,7 @@
  * In Linux you need to set CONFIG_LEDS_PCA963X=y (or m)
  * to be able to use this device.
  */
-External (_SB_.PCI0.I2C6, DeviceObj)
+External (\_SB_.PCI0.I2C6, DeviceObj)
 
 Scope (\_SB.PCI0.I2C6)
 {

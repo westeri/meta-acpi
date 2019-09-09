@@ -29,7 +29,7 @@
  *
  * Include this file from an ASL providing SSDT DefinitionBlock.
  */
-External (_SB_.PCI0.SPI5, DeviceObj)
+External (\_SB_.PCI0.SPI5, DeviceObj)
 
 Scope (\_SB.PCI0.SPI5)
 {
