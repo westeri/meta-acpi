@@ -19,7 +19,7 @@
  *
  * Include this file from an ASL providing SSDT DefinitionBlock.
  */
-External (\_SB_, DeviceObj)
+External (\_SB, DeviceObj)
 
 Scope (\_SB)
 {

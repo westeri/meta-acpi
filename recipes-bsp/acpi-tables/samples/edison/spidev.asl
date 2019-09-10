@@ -29,7 +29,7 @@
  */
 DefinitionBlock ("spidev.aml", "SSDT", 5, "", "SPIDEV", 1)
 {
-    External (\_SB_.PCI0.SPI5, DeviceObj)
+    External (\_SB.PCI0.SPI5, DeviceObj)
 
     Scope (\_SB.PCI0.SPI5)
     {

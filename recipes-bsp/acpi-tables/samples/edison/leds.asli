@@ -34,7 +34,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-Scope (_SB)
+Scope (\_SB)
 {
     Device (LEDS)
     {

@@ -166,7 +166,7 @@
 #error "SPI can't be enabled with CLK pin set to GPIO function"
 #endif
 
-External (\_SB_.PCI0.I2C1, DeviceObj)
+External (\_SB.PCI0.I2C1, DeviceObj)
 
 Scope (\_SB.PCI0.I2C1)
 {
@@ -735,7 +735,7 @@ Scope (\_SB.PCI0.I2C1)
 /* Texas Instruments ADS7950 family of A/DC chips */
 #include "ads7951.asli"
 
-External (\_SB_.PCI0.PWM0, DeviceObj)
+External (\_SB.PCI0.PWM0, DeviceObj)
 
 Scope (\_SB.PCI0.PWM0)
 {
@@ -756,7 +756,7 @@ Scope (\_SB.PCI0.PWM0)
     }
 }
 
-External (\_SB_.PCI0, DeviceObj)
+External (\_SB.PCI0, DeviceObj)
 
 Scope (\_SB.PCI0)
 {
