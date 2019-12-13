@@ -1,7 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds TI ADC ADS1015 to the first I2C bus available on Intel Edison.
+ * This adds TI ADS1015 ADC to the first I2C bus available on Intel Edison.
  *
  * In Linux you need to set CONFIG_TI_ADS1015=y (or m) to be able to use
  * this device.
@@ -35,7 +35,7 @@ DefinitionBlock ("ads1015.aml", "SSDT", 5, "", "ADS1015", 1)
         Device (TIAD)
         {
             Name (_HID, "PRP0001")
-            Name (_DDN, "TI ADC ADS1015")
+            Name (_DDN, "TI ADS1015 ADC")
             Name (_CRS, ResourceTemplate () {
                 I2cSerialBus (
                     0x48,                   // Bus address
