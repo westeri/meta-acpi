@@ -1,0 +1,44 @@
+/*
+ * Intel Edison
+ *
+ * This adds Bosch Sensortec BMP085 pressure and temperature sensor
+ * to the I2C6 bus available on Intel Edison/Arduino header.
+ *
+ * In Linux you need to set CONFIG_BMP280=y (or m)
+ * to be able to use this device.
+ *
+ * Include this file from an ASL providing SSDT DefinitionBlock.
+ */
+External (\_SB.PCI0.I2C6, DeviceObj)
+
+Scope (\_SB.PCI0.I2C6)
+{
+    Device (PRES) {
+        Name (_HID, "PRP0001")
+        Name (_DDN, "")
+        Name (_CRS, ResourceTemplate () {
+            I2cSerialBus (
+                0x77,                   // Bus address
+                ControllerInitiated,    // Don't care
+                400000,                 // Fast mode (400 kHz)
+                AddressingMode7Bit,     // 7-bit addressing
+                "\\_SB.PCI0.I2C6",      // I2C host controller
+                0                       // Must be 0
+            )
+            GpioInt(Edge, ActiveHigh, Exclusive, PullDown, 0,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 13 }
+        })
+
+        /*
+         * See Documentation/devicetree/bindings/iio/pressure/bmp085.yaml
+         * for more information about these bindings.
+         */
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () { "compatible", Package () { "bosch,bmp085" } },
+            }
+        })
+    }
+}
+
