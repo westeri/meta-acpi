@@ -75,7 +75,13 @@
 #define DIG7_PU_PD 0
 #endif
 
-#if DIG7_PU_PD
+#ifdef CONF_DIG8_PU_PD
+#define DIG8_PU_PD 1
+#else
+#define DIG8_PU_PD 0
+#endif
+
+#if DIG7_PU_PD || DIG8_PU_PD
 #define MUX_NIO2 1
 #else
 #define MUX_NIO2 0
@@ -141,6 +147,12 @@
 #define MUX32_DIR 0
 #endif
 
+#ifdef CONF_MUX30_DIR
+#define MUX30_DIR 1
+#else
+#define MUX30_DIR 0
+#endif
+
 #ifdef CONF_MUX28_DIR
 #define MUX28_DIR 1
 #else
@@ -153,7 +165,7 @@
 #define MUX18_DIR 0
 #endif
 
-#if MUX33_DIR || MUX31_DIR || MUX29_DIR || MUX27_DIR || MUX24_DIR || MUX21_DIR || MUX19_DIR || MUX32_DIR || MUX28_DIR || MUX18_DIR
+#if MUX33_DIR || MUX31_DIR || MUX29_DIR || MUX27_DIR || MUX24_DIR || MUX21_DIR || MUX19_DIR || MUX32_DIR || MUX30_DIR || MUX28_DIR || MUX18_DIR
 #define MUX_NIO4 1
 #else
 #define MUX_NIO4 0
@@ -303,6 +315,9 @@ Scope (\_SB.PCI0.I2C1)
 #if DIG7_PU_PD
                 DIG7_PU_PD_REF
 #endif
+#if DIG8_PU_PD
+                DIG8_PU_PD_REF
+#endif
 #if MUX_SPI
                 Package () {"ssp5-fs1-pu", "SSPU"},
                 Package () {"ssp5-txd-pu", "STPU"},
@@ -357,6 +372,9 @@ Scope (\_SB.PCI0.I2C1)
 #endif
 #if DIG7_PU_PD
         DIG7_PU_PD_HOG
+#endif
+#if DIG8_PU_PD
+        DIG8_PU_PD_HOG
 #endif
 #if MUX_SPI
         Name (SSPU, Package () {
@@ -580,6 +598,9 @@ Scope (\_SB.PCI0.I2C1)
 #if MUX32_DIR
                 MUX32_DIR_REF
 #endif
+#if MUX30_DIR
+                MUX30_DIR_REF
+#endif
 #if MUX28_DIR
                 MUX28_DIR_REF
 #endif
@@ -671,6 +692,10 @@ Scope (\_SB.PCI0.I2C1)
 
 #if MUX32_DIR
         MUX32_DIR_HOG
+#endif
+
+#if MUX30_DIR
+        MUX30_DIR_HOG
 #endif
 
 #if MUX28_DIR
