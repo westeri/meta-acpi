@@ -36,8 +36,7 @@
  */
 DefinitionBlock ("spidev.aml", "SSDT", 5, "", "SPIDEV", 1)
 {
-    #include "spi.asli"
-
+    External (\_SB_.PCI0.SPI1, DeviceObj)
     Scope (\_SB.PCI0.SPI1)
     {
         Device (TP0)

@@ -36,8 +36,7 @@
  */
 DefinitionBlock ("at25.aml", "SSDT", 5, "", "AT25", 1)
 {
-    #include "spi.asli"
-
+    External (\_SB_.PCI0.SPI1, DeviceObj)
     Scope (\_SB.PCI0.SPI1)
     {
         Device (EEP0) {

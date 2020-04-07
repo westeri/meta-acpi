@@ -98,6 +98,10 @@
 #define MUX_UART1 0
 #endif
 
+#if MUX_SPI
+#include "spi.asli"
+#endif
+
 External (_SB_.PCI0.LPC, DeviceObj)
 External (_SB_.PCI0.GIP0.GPO, DeviceObj)
 External (_SB_.NIO1, DeviceObj)
