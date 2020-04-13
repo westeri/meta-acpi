@@ -41,7 +41,7 @@ Scope (\_SB.PCI0.SPI5)
                 0,                      // Chip select
                 PolarityLow,            // Chip select is active low
                 FourWireMode,           // Full duplex
-                8,                      // Bits per word is 8 (byte)
+                16,                     // Bits per word is 16 (two bytes)
                 ControllerInitiated,    // Don't care
                 20000000,               // 20 MHz
                 ClockPolarityLow,       // SPI mode 0
