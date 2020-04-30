@@ -43,7 +43,7 @@ Scope (\_SB.PCI0.SPI5)
                 FourWireMode,           // Full duplex
                 16,                     // Bits per word is 16 (two bytes)
                 ControllerInitiated,    // Don't care
-                20000000,               // 20 MHz
+                10000000,               // 10 MHz
                 ClockPolarityLow,       // SPI mode 0
                 ClockPhaseFirst,        // SPI mode 0
                 "\\_SB.PCI0.SPI5",      // SPI host controller
