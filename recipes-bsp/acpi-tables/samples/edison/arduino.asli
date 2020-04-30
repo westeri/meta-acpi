@@ -69,6 +69,84 @@
 #define MUX_UART_2WIRE 0
 #endif
 
+#ifdef CONF_MUX15_DIR
+#define MUX15_DIR 1
+#else
+#define MUX15_DIR 0
+#endif
+
+#ifdef CONF_MUX13_DIR
+#define MUX13_DIR 1
+#else
+#define MUX13_DIR 0
+#endif
+
+#ifdef CONF_MUX11_DIR
+#define MUX11_DIR 1
+#else
+#define MUX11_DIR 0
+#endif
+
+#ifdef CONF_MUX9_DIR
+#define MUX9_DIR 1
+#else
+#define MUX9_DIR 0
+#endif
+
+#ifdef CONF_MUX7_DIR
+#define MUX7_DIR 1
+#else
+#define MUX7_DIR 0
+#endif
+
+#ifdef CONF_MUX5_DIR
+#define MUX5_DIR 1
+#else
+#define MUX5_DIR 0
+#endif
+
+#ifdef CONF_A0_PU_PD
+#define A0_PU_PD 1
+#else
+#define A0_PU_PD 0
+#endif
+
+#ifdef CONF_A1_PU_PD
+#define A1_PU_PD 1
+#else
+#define A1_PU_PD 0
+#endif
+
+#ifdef CONF_A2_PU_PD
+#define A2_PU_PD 1
+#else
+#define A2_PU_PD 0
+#endif
+
+#ifdef CONF_A3_PU_PD
+#define A3_PU_PD 1
+#else
+#define A3_PU_PD 0
+#endif
+
+#ifdef CONF_A4_PU_PD
+#define A4_PU_PD 1
+#else
+#define A4_PU_PD 0
+#endif
+
+#ifdef CONF_A5_PU_PD
+#define A5_PU_PD 1
+#else
+#define A5_PU_PD 0
+#endif
+
+#if MUX15_DIR || MUX13_DIR || MUX11_DIR || MUX9_DIR || MUX7_DIR || MUX5_DIR || A0_PU_PD || A1_PU_PD || A2_PU_PD || A3_PU_PD || A4_PU_PD || A5_PU_PD
+#define MUX_NIO1 1
+#else
+#define MUX_NIO1 0
+#endif
+
 #ifdef CONF_DIG5_PU_PD
 #define DIG5_PU_PD 1
 #else
@@ -93,13 +171,49 @@
 #define MUX_NIO2 0
 #endif
 
+#ifdef CONF_MUX14_DIR
+#define MUX14_DIR 1
+#else
+#define MUX14_DIR 0
+#endif
+
+#ifdef CONF_MUX12_DIR
+#define MUX12_DIR 1
+#else
+#define MUX12_DIR 0
+#endif
+
+#ifdef CONF_MUX10_DIR
+#define MUX10_DIR 1
+#else
+#define MUX10_DIR 0
+#endif
+
+#ifdef CONF_MUX8_DIR
+#define MUX8_DIR 1
+#else
+#define MUX8_DIR 0
+#endif
+
+#ifdef CONF_MUX6_DIR
+#define MUX6_DIR 1
+#else
+#define MUX6_DIR 0
+#endif
+
+#ifdef CONF_MUX4_DIR
+#define MUX4_DIR 1
+#else
+#define MUX4_DIR 0
+#endif
+
 #ifdef CONF_SPI_CLK_SEL
 #define SPI_CLK_SEL 1
 #else
 #define SPI_CLK_SEL 0
 #endif
 
-#if SPI_CLK_SEL
+#if MUX14_DIR || MUX12_DIR || MUX10_DIR || MUX8_DIR || MUX6_DIR || MUX4_DIR || SPI_CLK_SEL
 #define MUX_NIO3 1
 #else
 #define MUX_NIO3 0
@@ -190,6 +304,10 @@
 #error "SPI can't be enabled with CLK pin set to GPIO function"
 #endif
 
+#if MUX_I2C && (MUX15_DIR || MUX13_DIR)
+#error "I2C can't be enabled with SCL/SDA pins set to GPIO function"
+#endif
+
 External (\_SB.PCI0.I2C1, DeviceObj)
 
 Scope (\_SB.PCI0.I2C1)
@@ -224,7 +342,7 @@ Scope (\_SB.PCI0.I2C1)
                     }
                 },
             },
-#if MUX_I2C
+#if MUX_I2C || MUX_NIO1
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_I2C
@@ -232,6 +350,42 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"i2c6-scl-mux", "ICMX"},
                 Package () {"i2c6-sda-pu", "IDPU"},
                 Package () {"i2c6-scl-pu", "ICPU"},
+#endif
+#if MUX15_DIR
+                MUX15_DIR_REF
+#endif
+#if MUX13_DIR
+                MUX13_DIR_REF
+#endif
+#if MUX11_DIR
+                MUX11_DIR_REF
+#endif
+#if MUX9_DIR
+                MUX9_DIR_REF
+#endif
+#if MUX7_DIR
+                MUX7_DIR_REF
+#endif
+#if MUX5_DIR
+                MUX5_DIR_REF
+#endif
+#if A0_PU_PD
+                A0_PU_PD_REF
+#endif
+#if A1_PU_PD
+                A1_PU_PD_REF
+#endif
+#if A2_PU_PD
+                A2_PU_PD_REF
+#endif
+#if A3_PU_PD
+                A3_PU_PD_REF
+#endif
+#if A4_PU_PD
+                A4_PU_PD_REF
+#endif
+#if A5_PU_PD
+                A5_PU_PD_REF
 #endif
             }
 #endif
@@ -276,6 +430,42 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"line-name", "i2c6-scl-pu"},
             }
         })
+#endif
+#if MUX15_DIR
+        MUX15_DIR_HOG
+#endif
+#if MUX13_DIR
+        MUX13_DIR_HOG
+#endif
+#if MUX11_DIR
+        MUX11_DIR_HOG
+#endif
+#if MUX9_DIR
+        MUX9_DIR_HOG
+#endif
+#if MUX7_DIR
+        MUX7_DIR_HOG
+#endif
+#if MUX5_DIR
+        MUX5_DIR_HOG
+#endif
+#if A0_PU_PD
+        A0_PU_PD_HOG
+#endif
+#if A1_PU_PD
+        A1_PU_PD_HOG
+#endif
+#if A2_PU_PD
+        A2_PU_PD_HOG
+#endif
+#if A3_PU_PD
+        A3_PU_PD_HOG
+#endif
+#if A4_PU_PD
+        A4_PU_PD_HOG
+#endif
+#if A5_PU_PD
+        A5_PU_PD_HOG
 #endif
     }
 
@@ -466,6 +656,24 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"i2c6-sda-mux", "IDMX"},
                 Package () {"i2c6-scl-mux", "ICMX"},
 #endif
+#if MUX14_DIR
+                MUX14_DIR_REF
+#endif
+#if MUX12_DIR
+                MUX12_DIR_REF
+#endif
+#if MUX10_DIR
+                MUX10_DIR_REF
+#endif
+#if MUX8_DIR
+                MUX8_DIR_REF
+#endif
+#if MUX6_DIR
+                MUX6_DIR_REF
+#endif
+#if MUX4_DIR
+                MUX4_DIR_REF
+#endif
 #if SPI_CLK_SEL
                 SPI_CLK_SEL_REF
 #endif
@@ -498,6 +706,30 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"line-name", "i2c6-scl-mux"},
             }
         })
+#endif
+
+#if MUX14_DIR
+        MUX14_DIR_HOG
+#endif
+
+#if MUX12_DIR
+        MUX12_DIR_HOG
+#endif
+
+#if MUX10_DIR
+        MUX10_DIR_HOG
+#endif
+
+#if MUX8_DIR
+        MUX8_DIR_HOG
+#endif
+
+#if MUX6_DIR
+        MUX6_DIR_HOG
+#endif
+
+#if MUX4_DIR
+        MUX4_DIR_HOG
 #endif
 
 #if SPI_CLK_SEL
