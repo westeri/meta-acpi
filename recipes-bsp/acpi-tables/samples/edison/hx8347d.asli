@@ -1,0 +1,80 @@
+/*
+ * Intel Edison
+ *
+ * This adds Himax HX8347d 2.8" TFT display to the GPIOs available
+ * on Intel Edison/Arduino header.
+ *
+ * Arduino pin		TFT pin
+ * -----------		-------
+ *	IO2		DB2
+ *	IO3		DB3
+ *	IO4		DB4
+ *	IO5		DB5
+ *	IO6		DB6
+ *	IO7		DB7
+ *	IO8		DB0
+ *	IO9		DB1
+ *	IO14 (A0)	RD
+ *	IO15 (A1)	WR
+ *	IO16 (A2)	RS
+ *	IO17 (A3)	CS
+ *	IO18 (A4)	RST
+ *
+ * In Linux you need to set CONFIG_FB_TFT_HX8347D=y (or m) to be able to use
+ * this device.
+ *
+ * Include this file from an ASL providing SSDT DefinitionBlock.
+ */
+External (\_SB, DeviceObj)
+
+Scope (\_SB)
+{
+    Device (TFT0) {
+        Name (_HID, "PRP0001")
+        Name (_DDN, "Himax HX8347d 2.8" TFT display")
+        Name (_CRS, ResourceTemplate () {
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 49, 183, 128, 12, 129, 13, 182, 48 }
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 44 }
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 45 }
+            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 46 }
+            GpioIo(Exclusive, PullUp, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 47 }
+            GpioIo(Exclusive, PullUp, 0, 0, IoRestrictionOutputOnly,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 14 }
+        })
+
+        /*
+         * See drivers/staging/fbtft/fbtft-core.c::fbtft_properties_read()
+         * for more information about these bindings.
+         */
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () { "compatible", Package () { "himax,hx8347d" } },
+                Package () {
+                    "db-gpios", Package () {
+                        ^TFT0, 0, 0, 0,
+                        ^TFT0, 0, 1, 0,
+                        ^TFT0, 0, 2, 0,
+                        ^TFT0, 0, 3, 0,
+                        ^TFT0, 0, 4, 0,
+                        ^TFT0, 0, 5, 0,
+                        ^TFT0, 0, 6, 0,
+                        ^TFT0, 0, 7, 0,
+                    },
+                },
+                Package () { "rd-gpios", Package () { ^TFT0, 1, 0, 0 } },
+                Package () { "wr-gpios", Package () { ^TFT0, 2, 0, 0 } },
+                Package () { "dc-gpios", Package () { ^TFT0, 3, 0, 0 } },
+                Package () { "cs-gpios", Package () { ^TFT0, 4, 0, 1 } },
+                Package () { "reset-gpios", Package () { ^TFT0, 5, 0, 1 } },
+                Package () { "buswidth", 8 },
+                Package () { "bgr", 1 },
+            }
+        })
+    }
+}
