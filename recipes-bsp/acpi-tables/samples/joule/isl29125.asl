@@ -27,7 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("isl.aml", "SSDT", 5, "", "ADC", 1)
+DefinitionBlock ("isl29125.aml", "SSDT", 5, "", "ISL29125", 1)
 {
     External (\_SB_.PCI0.I2C2, DeviceObj)
 
@@ -51,7 +51,7 @@ DefinitionBlock ("isl.aml", "SSDT", 5, "", "ADC", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", "isil,isl29125"},
+                    Package () { "compatible", Package() { "isil,isl29125" } },
                 }
             })
         }
