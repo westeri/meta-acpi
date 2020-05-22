@@ -60,8 +60,8 @@ DefinitionBlock ("serial.aml", "SSDT", 5, "", "SERIAL", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", Package () {"nxp,sc16is750"}},
-                    Package () {"clock-frequency", 14745600},
+                    Package () { "compatible", Package () { "nxp,sc16is750" } },
+                    Package () { "clock-frequency", 14745600 },
                 }
             })
         }

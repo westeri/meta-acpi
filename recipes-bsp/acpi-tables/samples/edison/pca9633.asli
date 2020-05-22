@@ -32,7 +32,7 @@ Scope (\_SB.PCI0.I2C6)
         Name (_DSD, Package () {
             ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
             Package () {
-                Package () { "compatible", "nxp,pca9633" },
+                Package () { "compatible", Package() { "nxp,pca9633" } },
             },
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {

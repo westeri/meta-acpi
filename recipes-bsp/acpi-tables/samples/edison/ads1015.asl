@@ -54,7 +54,7 @@ DefinitionBlock ("ads1015.aml", "SSDT", 5, "", "ADS1015", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", Package () {"ti,ads1015"}},
+                    Package () { "compatible", Package () { "ti,ads1015" } },
                 }
             })
         }
