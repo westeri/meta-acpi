@@ -64,10 +64,10 @@ DefinitionBlock ("at25.aml", "SSDT", 5, "", "AT25", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", "atmel,at25"},
-                    Package () {"size", 1024},
-                    Package () {"pagesize", 32},
-                    Package () {"address-width", 16},
+                    Package () { "compatible", Package() { "atmel,at25" } },
+                    Package () { "size", 1024 },
+                    Package () { "pagesize", 32 },
+                    Package () { "address-width", 16 },
                 }
             })
         }
