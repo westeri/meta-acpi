@@ -37,7 +37,6 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
         {
             Name (_HID, "PRP0001")
             Name (_DDN, "GPIO LEDs device")
-
             Name (_CRS, ResourceTemplate () {
                 GpioIo (
                     Exclusive,                  // Not shared
@@ -55,7 +54,7 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", "gpio-leds"},
+                    Package () { "compatible", Package() { "gpio-leds" } },
                 },
                 ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
                 Package () {

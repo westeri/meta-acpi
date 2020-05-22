@@ -65,7 +65,7 @@ DefinitionBlock ("m25p80.aml", "SSDT", 5, "", "M25P80", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", "jedec,spi-nor"},
+                    Package () { "compatible", Package() { "jedec,spi-nor" } },
                 }
             })
         }
