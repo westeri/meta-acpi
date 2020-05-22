@@ -67,9 +67,9 @@ DefinitionBlock ("buttons.aml", "SSDT", 5, "", "BUTTONS", 1)
             Name (_DSD, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
-                    Package () {"compatible", "gpio-keys-polled"},
-                    Package () {"poll-interval", 100},
-                    Package () {"autorepeat", 1}
+                    Package () { "compatible", Package() { "gpio-keys-polled" } },
+                    Package () { "poll-interval", 100 },
+                    Package () { "autorepeat", 1 }
                 },
                 ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
                 Package () {
