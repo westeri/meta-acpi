@@ -35,6 +35,13 @@
 #define MUX_I2C 0
 #endif
 
+#ifdef MUX_I2S
+#undef MUX_I2S
+#define MUX_I2S 1
+#else
+#define MUX_I2S 0
+#endif
+
 #ifdef MUX_SPI
 #undef MUX_SPI
 #define MUX_SPI 1
@@ -63,6 +70,12 @@
 #endif
 
 /* Sanity checks */
+#if MUX_I2S && MUX_SPI
+#warning "SPI muxing is ambiguous (colliding with I2S), switching to SPI mode..."
+#undef MUX_I2S
+#define MUX_I2S 0
+#endif
+
 #if MUX_UART_2WIRE && MUX_UART_4WIRE
 #warning "UART muxing is ambiguous, switching to 4 wire mode..."
 #undef MUX_UART_2WIRE
@@ -304,6 +317,10 @@
 #error "SPI can't be enabled with CLK pin set to GPIO function"
 #endif
 
+#if MUX_I2S && (SPI_CLK_SEL || MUX18_DIR)
+#error "I2S can't be enabled with CLK pin set to GPIO function"
+#endif
+
 #if MUX_I2C && (MUX15_DIR || MUX13_DIR)
 #error "I2C can't be enabled with SCL/SDA pins set to GPIO function"
 #endif
@@ -497,7 +514,7 @@ Scope (\_SB.PCI0.I2C1)
                     }
                 },
             },
-#if MUX_SPI || MUX_UART || MUX_NIO2
+#if MUX_I2S || MUX_SPI || MUX_UART || MUX_NIO2
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_UART
@@ -516,6 +533,12 @@ Scope (\_SB.PCI0.I2C1)
 #endif
 #if DIG8_PU_PD
                 DIG8_PU_PD_REF
+#endif
+#if MUX_I2S
+                Package () {"i2s2-fs-pu", "SSPU"},
+                Package () {"i2s2-txd-pu", "STPU"},
+                Package () {"i2s2-rxd-pu", "SRPU"},
+                Package () {"i2s2-clk-pu", "SCPU"},
 #endif
 #if MUX_SPI
                 Package () {"ssp5-fs1-pu", "SSPU"},
@@ -578,14 +601,19 @@ Scope (\_SB.PCI0.I2C1)
 #if DIG8_PU_PD
         DIG8_PU_PD_HOG
 #endif
-#if MUX_SPI
+#if MUX_I2S || MUX_SPI
         Name (SSPU, Package () {
             ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
             Package () {
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {10, 0}},
                 Package () {"input", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-fs-pu"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-fs1-pu"},
+#endif
             }
         })
 
@@ -595,7 +623,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {11, 0}},
                 Package () {"input", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-txd-pu"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-txd-pu"},
+#endif
             }
         })
 
@@ -605,7 +638,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {12, 0}},
                 Package () {"input", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-rxd-pu"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-rxd-pu"},
+#endif
             }
         })
 
@@ -615,7 +653,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {13, 0}},
                 Package () {"input", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-clk-pu"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-clk-pu"},
+#endif
             }
         })
 #endif
@@ -649,7 +692,7 @@ Scope (\_SB.PCI0.I2C1)
                     }
                 },
             },
-#if MUX_I2C || MUX_SPI || MUX_NIO3
+#if MUX_I2C || MUX_I2S || MUX_SPI || MUX_NIO3
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_I2C
@@ -676,6 +719,12 @@ Scope (\_SB.PCI0.I2C1)
 #endif
 #if SPI_CLK_SEL
                 SPI_CLK_SEL_REF
+#endif
+#if MUX_I2S
+                Package () {"i2s2-fs-mux", "SSMX"},
+                Package () {"i2s2-txd-mux", "STMX"},
+                Package () {"i2s2-rxd-mux", "SRMX"},
+                Package () {"i2s2-clk-mux", "SCMX"},
 #endif
 #if MUX_SPI
                 Package () {"ssp5-fs1-mux", "SSMX"},
@@ -736,14 +785,20 @@ Scope (\_SB.PCI0.I2C1)
         SPI_CLK_SEL_HOG
 #endif
 
-#if MUX_SPI
+#if MUX_I2S || MUX_SPI
         Name (SSMX, Package () {
             ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
             Package () {
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {8, 0}},
+#if MUX_I2S
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2s2-fs-mux"},
+#endif
+#if MUX_SPI
                 Package () {"output-high", 1},
                 Package () {"line-name", "ssp5-fs1-mux"},
+#endif
             }
         })
 
@@ -752,8 +807,14 @@ Scope (\_SB.PCI0.I2C1)
             Package () {
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {9, 0}},
+#if MUX_I2S
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2s2-txd-mux"},
+#endif
+#if MUX_SPI
                 Package () {"output-high", 1},
                 Package () {"line-name", "ssp5-txd-mux"},
+#endif
             }
         })
 
@@ -762,8 +823,14 @@ Scope (\_SB.PCI0.I2C1)
             Package () {
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {10, 0}},
+#if MUX_I2S
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2s2-rxd-mux"},
+#endif
+#if MUX_SPI
                 Package () {"output-high", 1},
                 Package () {"line-name", "ssp5-rxd-mux"},
+#endif
             }
         })
 
@@ -772,8 +839,14 @@ Scope (\_SB.PCI0.I2C1)
             Package () {
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {11, 0}},
+#if MUX_I2S
+                Package () {"output-low", 1},
+                Package () {"line-name", "i2s2-clk-mux"},
+#endif
+#if MUX_SPI
                 Package () {"output-high", 1},
                 Package () {"line-name", "ssp5-clk-mux"},
+#endif
             }
         })
 #endif
@@ -807,7 +880,7 @@ Scope (\_SB.PCI0.I2C1)
                     }
                 },
             },
-#if MUX_SPI || MUX_UART || MUX_NIO4
+#if MUX_I2S || MUX_SPI || MUX_UART || MUX_NIO4
             ToUUID("dbb8e3e6-5886-4ba6-8795-1319f52a966b"),
             Package () {
 #if MUX_UART
@@ -850,6 +923,14 @@ Scope (\_SB.PCI0.I2C1)
 #endif
 #if MUX18_DIR
                 MUX18_DIR_REF
+#endif
+#if MUX_I2S
+                Package () {"i2s2-fs-oe", "SSOE"},
+                Package () {"i2s2-txd-oe", "STOE"},
+                Package () {"i2s2-rxd-oe", "SROE"},
+                Package () {"i2s2-clk-oe", "SCOE"},
+                Package () {"i2s2-txd-mux", "STMX"},
+                Package () {"i2s2-fs-mux", "SSMX"},
 #endif
 #if MUX_SPI
                 Package () {"ssp5-fs1-oe", "SSOE"},
@@ -950,14 +1031,19 @@ Scope (\_SB.PCI0.I2C1)
         MUX18_DIR_HOG
 #endif
 
-#if MUX_SPI
+#if MUX_I2S || MUX_SPI
         Name (SSOE, Package () {
             ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
             Package () {
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {10, 0}},
                 Package () {"output-high", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-fs-oe"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-fs1-oe"},
+#endif
             }
         })
 
@@ -967,7 +1053,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {11, 0}},
                 Package () {"output-high", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-txd-oe"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-txd-oe"},
+#endif
             }
         })
 
@@ -977,7 +1068,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {12, 0}},
                 Package () {"output-low", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-rxd-oe"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-rxd-oe"},
+#endif
             }
         })
 
@@ -987,7 +1083,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {13, 0}},
                 Package () {"output-high", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-clk-oe"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-clk-oe"},
+#endif
             }
         })
 
@@ -997,7 +1098,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {14, 0}},
                 Package () {"output-high", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-txd-mux"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-txd-mux"},
+#endif
             }
         })
 
@@ -1007,7 +1113,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"gpio-hog", 1},
                 Package () {"gpios", Package () {15, 0}},
                 Package () {"output-high", 1},
+#if MUX_I2S
+                Package () {"line-name", "i2s2-fs-mux"},
+#endif
+#if MUX_SPI
                 Package () {"line-name", "ssp5-fs1-mux"},
+#endif
             }
         })
 #endif
