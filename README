@@ -173,8 +173,11 @@ ACPI_TABLES variable.
 
 All these live under recipes-bsp/acpi-tables/samples directory.
 
+Note, the *.asli files can be used in custom configurations when specific
+devices are connected to the same platform.
+
 Galileo
---------
+-------
 
 Galileo has rather peculiar way of muxing pins. It uses several discrete
 mux chips and GPIOs to control them. We provide gpiomux-*.asl files
@@ -290,6 +293,8 @@ Solution:
                 board with I2c and SPI enabled.
   arduino-all.asl - Adds arduino board external muxes and level translators
                 with enabled UART in 4W mode, I2C-6 and SPI.
+  arduino-audio-no-codec.asl - Enables I²C and I²S musing on Edison/Arduino to
+                be able to use for audio without any codec connected.
   ds2-led.asl - Combined arduino and leds in one solution table. By default
                 no defines are set.
   enc28j60.asl - Combined arduino with support for Microchip ENC28J60 ethernet on
