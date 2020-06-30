@@ -31,6 +31,7 @@ IASLFLAGS = " \
     ${@bb.utils.contains('ACPI_FEATURES', 'uart_4w', '-DMUX_UART_4WIRE', '', d)} \
     ${@bb.utils.contains('ACPI_FEATURES', 'i2c', '-DMUX_I2C', '', d)} \
     ${@bb.utils.contains('ACPI_FEATURES', 'spi', '-DMUX_SPI', '', d)} \
+    ${@bb.utils.contains('ACPI_FEATURES', 'i2s', '-DMUX_I2S', '', d)} \
     ${@bb.utils.contains('ACPI_FEATURES', 'uart0', '-DMUX_UART0', '', d)} \
 "
 
