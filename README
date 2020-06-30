@@ -302,3 +302,5 @@ Solution:
   hd44780.asl - Combined arduino with support for 16x2 HD44780 Character LCD
                 to the GPIOs available on Edison/Arduino header with I2C and SPI
                 enabled.
+  sparkfun-ssd1306.asl - Combined SSD1306 and buttons found on SparkFun DEV-13035
+                addition card.

@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("dev13035.aml", "SSDT", 5, "", "DEV13035", 1)
+DefinitionBlock ("ssd1306.aml", "SSDT", 5, "", "SSD1306", 1)
 {
     #include "ssd1306.asli"
     #include "buttons.asli"
