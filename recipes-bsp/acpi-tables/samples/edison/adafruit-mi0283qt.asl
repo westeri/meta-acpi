@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("adafruit.aml", "SSDT", 5, "", "ADAFRUIT", 1)
+DefinitionBlock ("mi0283qt.aml", "SSDT", 5, "", "MI0283QT", 1)
 {
     #define MUX_I2C
     #define MUX_SPI

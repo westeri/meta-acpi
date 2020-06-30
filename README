@@ -288,7 +288,7 @@ Chainloadable:
                 available on Edison I/O connector.
 
 Solution:
-  adafruit.asl - Provides support for Adafruit 2.8" TFT display with
+  adafruit-mi0283qt.asl - Provides support for Adafruit 2.8" TFT display with
                 capacitive touchscreen and micro-SD card slot on Edison/Arduino
                 board with I2c and SPI enabled.
   arduino-all.asl - Adds arduino board external muxes and level translators
