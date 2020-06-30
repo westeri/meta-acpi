@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-DefinitionBlock ("ds2-led.aml", "SSDT", 5, "", "DS2-LED", 1)
+DefinitionBlock ("leds-ds2.aml", "SSDT", 5, "", "LEDS-DS2", 1)
 {
 #define SPI_CLK_SEL_HOG	Name (DSMX, Package () { ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"), Package () { Package () { "gpio-hog", 1 }, Package () { "gpios", Package () { 11, 0 } }, Package () { "output-low", 1 }, Package () { "line-name", "ds2-mux" }, } })
 #define SPI_CLK_SEL_REF	Package () { "ds2-mux", "DSMX" },
