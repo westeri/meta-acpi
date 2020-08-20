@@ -74,17 +74,18 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
 
             /*
              * For more information about these bindings see:
-             * Documentation/devicetree/bindings/leds/leds-gpio.txt and
-             * Documentation/acpi/gpio-properties.txt.
+             * Documentation/devicetree/bindings/leds/common.yaml,
+             * Documentation/devicetree/bindings/leds/leds-gpio.yaml and
+             * Documentation/firmware-guide/acpi/gpio-properties.rst.
              */
             Name (LED0, Package () {
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "heartbeat"},
-                    Package () {"gpios", Package () {^LEDS, 0, 0, 0}},
-                    Package () {"linux,default-state", "off"},
+                    Package () {"default-state", "off"},
                     Package () {"linux,default-trigger", "heartbeat"},
-                    Package () {"linux,retain-state-suspended", 1},
+                    Package () {"gpios", Package () {^LEDS, 0, 0, 0}},
+                    Package () {"retain-state-suspended", 1},
                 }
             })
 
@@ -92,10 +93,10 @@ DefinitionBlock ("leds.aml", "SSDT", 5, "", "LEDS", 1)
                 ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
                 Package () {
                     Package () {"label", "sd-card"},
-                    Package () {"gpios", Package () {^LEDS, 0, 1, 0}},
-                    Package () {"linux,default-state", "off"},
+                    Package () {"default-state", "off"},
                     Package () {"linux,default-trigger", "mmc0"},
-                    Package () {"linux,retain-state-suspended", 1},
+                    Package () {"gpios", Package () {^LEDS, 0, 1, 0}},
+                    Package () {"retain-state-suspended", 1},
                 }
             })
         }
