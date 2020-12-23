@@ -21,7 +21,7 @@ B = "${WORKDIR}/acpi-tables"
 
 inherit deploy
 
-RDEPENDS_${PN}_edison = "libgpiod"
+RDEPENDS_${PN}_edison = "libgpiod-tools"
 
 ACPI_TABLES ?= ""
 ACPI_TABLES[doc] = "List of ACPI tables to include with the initrd"
