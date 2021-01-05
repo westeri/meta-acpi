@@ -8,6 +8,6 @@
         cat $TABLE > /sys/kernel/config/acpi/table/$dest_dir/aml
     done
 
-    sleep 0.1
+    sleep 0.2
     gpioset `gpiofind TRI_STATE_ALL`=0
     gpioset `gpiofind TRI_STATE_ALL`=1
