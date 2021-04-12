@@ -10,7 +10,7 @@ KCONFIG_MODE = "--alldefconfig"
 
 SRC_URI += "file://defconfig"
 
-SRC_URI_append_galileo = " file://galileo.cfg"
+SRC_URI_append_galileo_gen2 = " file://galileo-gen2.cfg"
 SRC_URI_append_minnowboard = " file://minnowboard.cfg"
 
 LINUX_VERSION ?= "4.14"
@@ -23,4 +23,4 @@ PV = "${LINUX_VERSION}+git${SRCPV}"
 
 # Override COMPATIBLE_MACHINE to include your machine in a copy of this recipe
 # file. Leaving it empty here ensures an early explicit build failure.
-COMPATIBLE_MACHINE = "galileo|joule|minnowboard|minnowboard-max"
+COMPATIBLE_MACHINE = "galileo-gen2|joule|minnowboard|minnowboard-max"

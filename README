@@ -24,7 +24,8 @@ I. Overview
 ===========
 
 This layer provides extended support for Intel ACPI enabled development
-boards such as Minnowboard, Minnowboard MAX, Galileo, Joule and Edison*).
+boards such as Minnowboard, Minnowboard MAX, Galileo Gen 2, Joule and
+Edison *).
 
 The driving force here is that the BIOS shipped with these boards cannot
 possibly support all possible devices you can connect them. For example
@@ -60,11 +61,11 @@ e.g.:
   /path/to/poky/meta-intel \
   /path/to/poky/meta-acpi \
 
-Currently supported boards include Galileo, Minnowboard, MinnowBoard
+Currently supported boards include Galileo Gen 2, Minnowboard, MinnowBoard
 MAX, Minnowboard Turbot, Joule and Edison. You can pick the board including
 default ACPI tables by setting MACHINE in local.conf either of:
 
-  MACHINE = "galileo"
+  MACHINE = "galileo-gen2"
   MACHINE = "minnowboard"
   MACHINE = "minnowboard-max"
   MACHINE = "joule"
@@ -176,15 +177,15 @@ All these live under recipes-bsp/acpi-tables/samples directory.
 Note, the *.asli files can be used in custom configurations when specific
 devices are connected to the same platform.
 
-Galileo
--------
+Galileo Gen 2
+-------------
 
-Galileo has rather peculiar way of muxing pins. It uses several discrete
+Galileo Gen 2 has rather peculiar way of muxing pins. It uses several discrete
 mux chips and GPIOs to control them. We provide gpiomux-*.asl files
 which provide both names to GPIOs and pin muxing accordingly. User can
 select which buses are muxed on the pins of the board.
 
-On Galileo we can define an additional variable:
+On Galileo Gen 2 we can define an additional variable:
 
 ACPI_FEATURES ?= ""
 
