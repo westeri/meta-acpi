@@ -1,0 +1,67 @@
+/*
+ * Intel Edison
+ *
+ * This adds STMicro LSM9DS0 9DOF to the I2C1 bus available
+ * on Intel Edison header.
+ *
+ * In Linux you need to set CONFIG_IIO_ST_GYRO_3AXIS=y (or m) and
+ * CONFIG_IIO_ST_LSM9DS0=y (or m) to be able to use this device.
+ */
+External (\_SB.PCI0.I2C1, DeviceObj)
+
+Scope (\_SB.PCI0.I2C1)
+{
+    Device (ST9D) {
+        Device (GYRO) {
+            Name (_HID, "PRP0001")
+            Name (_DDN, "STMicro LSM9DS0 (gyro)")
+            Name (_CRS, ResourceTemplate () {
+                I2cSerialBus (
+                    0x6b,                   // Bus address
+                    ControllerInitiated,    // Don't care
+                    400000,                 // Fast mode (400 kHz)
+                    AddressingMode7Bit,     // 7-bit addressing
+                    "\\_SB.PCI0.I2C1",      // I2C host controller
+                    0                       // Must be 0
+                )
+            })
+
+            /*
+             * See Documentation/devicetree/bindings/iio/st,st-sensors.yaml
+             * for more information about these bindings.
+             */
+            Name (_DSD, Package () {
+                ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+                Package () {
+                    Package () { "compatible", "st,lsm9ds0-gyro" },
+                },
+            })
+        }
+
+        Device (ACMG) {
+            Name (_HID, "PRP0001")
+            Name (_DDN, "STMicro LSM9DS0 (accelerometer & magnetometer)")
+            Name (_CRS, ResourceTemplate () {
+                I2cSerialBus (
+                    0x1d,                   // Bus address
+                    ControllerInitiated,    // Don't care
+                    400000,                 // Fast mode (400 kHz)
+                    AddressingMode7Bit,     // 7-bit addressing
+                    "\\_SB.PCI0.I2C1",      // I2C host controller
+                    0                       // Must be 0
+                )
+            })
+
+            /*
+             * See Documentation/devicetree/bindings/iio/st,st-sensors.yaml
+             * for more information about these bindings.
+             */
+            Name (_DSD, Package () {
+                ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+                Package () {
+                    Package () { "compatible", "st,lsm9ds0-imu" },
+                },
+            })
+        }
+    }
+}
