@@ -14,11 +14,11 @@
  *	IO7		DB7
  *	IO8		DB0
  *	IO9		DB1
- *	IO14 (A0)	RD
- *	IO15 (A1)	WR
+ *	IO14 (A0)	RD#
+ *	IO15 (A1)	WR#
  *	IO16 (A2)	RS
- *	IO17 (A3)	CS
- *	IO18 (A4)	RST
+ *	IO17 (A3)	CS#
+ *	IO18 (A4)	RST#
  *
  * In Linux you need to set CONFIG_FB_TFT_HX8347D=y (or m) to be able to use
  * this device.
@@ -35,9 +35,9 @@ Scope (\_SB)
         Name (_CRS, ResourceTemplate () {
             GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 49, 183, 128, 12, 129, 13, 182, 48 }
-            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+            GpioIo(Exclusive, PullUp, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 44 }
-            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+            GpioIo(Exclusive, PullUp, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 45 }
             GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 46 }
@@ -67,8 +67,8 @@ Scope (\_SB)
                         ^TFT0, 0, 7, 0,
                     },
                 },
-                Package () { "rd-gpios", Package () { ^TFT0, 1, 0, 0 } },
-                Package () { "wr-gpios", Package () { ^TFT0, 2, 0, 0 } },
+                Package () { "rd-gpios", Package () { ^TFT0, 1, 0, 1 } },
+                Package () { "wr-gpios", Package () { ^TFT0, 2, 0, 1 } },
                 Package () { "dc-gpios", Package () { ^TFT0, 3, 0, 0 } },
                 Package () { "cs-gpios", Package () { ^TFT0, 4, 0, 1 } },
                 Package () { "reset-gpios", Package () { ^TFT0, 5, 0, 1 } },
