@@ -31,7 +31,7 @@ Scope (\_SB)
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 129, 128, 131, 130 }
             GpioIo(Exclusive, PullDown, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 13 }
-            GpioIo(Exclusive, PullDefault, 0, 0, IoRestrictionOutputOnly,
+            GpioIo(Exclusive, PullNone, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 12 }
         })
 
