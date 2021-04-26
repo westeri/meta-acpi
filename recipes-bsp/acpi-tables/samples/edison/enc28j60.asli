@@ -63,5 +63,7 @@ Scope (\_SB.PCI0.SPI5)
                 Package () { "compatible", Package () { "microchip,enc28j60" } },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }

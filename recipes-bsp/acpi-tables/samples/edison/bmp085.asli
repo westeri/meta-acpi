@@ -39,6 +39,8 @@ Scope (\_SB.PCI0.I2C6)
                 Package () { "compatible", Package () { "bosch,bmp085" } },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }
 

@@ -76,5 +76,7 @@ Scope (\_SB)
                 Package () { "bgr", 1 },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }

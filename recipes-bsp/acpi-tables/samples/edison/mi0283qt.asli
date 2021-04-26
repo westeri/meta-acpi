@@ -65,5 +65,7 @@ Scope (\_SB.PCI0.SPI5)
                 Package () { "rotation", 0 },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }

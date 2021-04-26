@@ -30,7 +30,7 @@ Scope (\_SB.PCI0.I2C6)
         })
 
         /*
-         * See Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.txt
+         * See Documentation/devicetree/bindings/input/touchscreen/edt-ft5x06.yaml
          * for more information about these bindings.
          */
         Name (_DSD, Package () {
@@ -39,5 +39,7 @@ Scope (\_SB.PCI0.I2C6)
                 Package () { "compatible", Package () { "focaltech,ft6236" } },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }

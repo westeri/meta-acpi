@@ -60,5 +60,7 @@ Scope (\_SB.PCI0.SPI5)
                 Package () { "buswidth", 8 },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }

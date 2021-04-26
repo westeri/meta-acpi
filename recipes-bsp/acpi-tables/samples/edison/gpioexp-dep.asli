@@ -1,0 +1,14 @@
+/*
+ * Set _DEP() on GPIO expanders found on Edison/Arduino board.
+ */
+#if MUX_NIO1 || MUX_NIO2 || MUX_NIO3 || MUX_NIO4
+
+Name (_DEP, Package ()
+{
+    \_SB.PCI0.I2C1.NIO1,
+    \_SB.PCI0.I2C1.NIO2,
+    \_SB.PCI0.I2C1.NIO3,
+    \_SB.PCI0.I2C1.NIO4,
+})
+
+#endif

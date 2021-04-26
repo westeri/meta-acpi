@@ -52,7 +52,7 @@ Scope (\_SB.PCI0.SPI5)
         })
 
         /*
-         * See Documentation/devicetree/bindings/iio/adc/ti-ads7950.txt for
+         * See Documentation/devicetree/bindings/iio/adc/ti,ads7950.yaml for
          * more information about these bindings.
          */
         Name (_DSD, Package () {
@@ -61,5 +61,7 @@ Scope (\_SB.PCI0.SPI5)
                 Package () { "compatible", Package () { "ti,ads7951" } },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }

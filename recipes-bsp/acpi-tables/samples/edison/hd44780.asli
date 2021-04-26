@@ -36,7 +36,7 @@ Scope (\_SB)
         })
 
         /*
-         * See Documentation/devicetree/bindings/auxdisplay/hit,hd44780.txt
+         * See Documentation/devicetree/bindings/auxdisplay/hit,hd44780.yaml
          * for more information about these bindings.
          */
         Name (_DSD, Package () {
@@ -57,5 +57,7 @@ Scope (\_SB)
                 Package () { "rs-gpios", Package () { ^LCD0, 2, 0, 0 } },
             }
         })
+
+        #include "gpioexp-dep.asli"
     }
 }
