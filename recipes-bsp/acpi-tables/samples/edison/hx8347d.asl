@@ -11,7 +11,8 @@
  * kernel fbtft framework the display works only in output mode. It means
  * there is no support for resistive touchscreen.
  *
- * TODO: SD card support is under (slow) development, though.
+ * Additionally it supports MMC slot connected to the SPI bus. In Linux you
+ * need to set CONFIG_MMC_SPI=y (or m) to be able to use this device.
  */
 DefinitionBlock ("hx8347d.aml", "SSDT", 5, "", "HX8347D", 1)
 {
@@ -87,4 +88,5 @@ DefinitionBlock ("hx8347d.aml", "SSDT", 5, "", "HX8347D", 1)
 
     #include "arduino.asli"
     #include "hx8347d.asli"
+    #include "mmc-spi.asli"
 }
