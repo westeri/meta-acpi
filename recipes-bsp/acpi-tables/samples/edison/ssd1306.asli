@@ -50,7 +50,7 @@ Scope (\_SB.PCI0.SPI5)
                 "\\_SB.PCI0.SPI5",      // SPI host controller
                 0                       // Must be 0
             )
-            GpioIo(Exclusive, PullDown, 0, 0, IoRestrictionOutputOnly,
+            GpioIo(Exclusive, PullNone, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 14 }
             GpioIo(Exclusive, PullUp, 0, 0, IoRestrictionOutputOnly,
                 "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 15 }
