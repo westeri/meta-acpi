@@ -1,0 +1,51 @@
+/*
+ * Intel Edison
+ *
+ * This adds Microchip MRF24J40 IEEE 802.15.4 2.4 GHz transceiver to
+ * the SPI host controller available on Intel Edison header.
+ *
+ * In Linux you need to set CONFIG_IEEE802154_MRF24J40=y (or m) to be able
+ * to use this device.
+ *
+ * Include this file from an ASL providing SSDT DefinitionBlock.
+ */
+
+External (\_SB.PCI0.SPI5, DeviceObj)
+
+Scope (\_SB.PCI0.SPI5)
+{
+    Device (MRF0)
+    {
+        Name (_HID, "PRP0001")
+        Name (_DDN, "Microchip MRF24J40 IEEE 802.15.4 2.4 GHz transceiver")
+        Name (_CRS, ResourceTemplate () {
+            SpiSerialBus (
+                1,                      // Chip select
+                PolarityLow,            // Chip select is active low
+                FourWireMode,           // Full duplex
+                8,                      // Bits per word is 8 (byte)
+                ControllerInitiated,    // Don't care
+                5000000,                // 5 MHz
+                ClockPolarityLow,       // SPI mode 0
+                ClockPhaseFirst,        // SPI mode 0
+                "\\_SB.PCI0.SPI5",      // SPI host controller
+                0                       // Must be 0
+            )
+            GpioInt(Level, ActiveLow, Exclusive, PullNone, 0,
+                "\\_SB.PCI0.GPIO", 0, ResourceConsumer, , ) { 48 }
+        })
+
+        /*
+         * See Documentation/devicetree/bindings/net/ieee802154/mrf24j40.txt
+         * for more information about these bindings.
+         */
+        Name (_DSD, Package () {
+            ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+            Package () {
+                Package () { "compatible", Package () { "microchip,mrf24j40" } },
+            }
+        })
+
+        #include "gpioexp-dep.asli"
+    }
+}
