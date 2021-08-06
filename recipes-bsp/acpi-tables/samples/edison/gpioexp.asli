@@ -36,7 +36,7 @@ Device (NIO1)
         I2cSerialBusV2(0x0020, ControllerInitiated, 400000,
             AddressingMode7Bit, "\\_SB.PCI0.I2C1",
             0x00, ResourceConsumer, , Exclusive, )
-        GpioInt(Level, ActiveLow, Exclusive, PullDefault, 0x0000,
+        GpioInt(Level, ActiveLow, Exclusive, PullUp, 0x0000,
             "\\_SB.PCI0.GPIO", 0x00, ResourceConsumer, , ) { 15 }
     })
     Method (_CRS, 0, NotSerialized)

@@ -52,7 +52,7 @@ DefinitionBlock ("serial.aml", "SSDT", 5, "", "SERIAL", 1)
                     0                       // Must be 0
                 )
 
-                GpioInt(Level, ActiveLow, Exclusive, PullDefault, 0x0000,
+                GpioInt(Level, ActiveLow, Exclusive, PullUp, 0x0000,
                         "\\_SB.PCI0.GPIO", 0x00, ResourceConsumer, , ) { 15 }
 
             })
