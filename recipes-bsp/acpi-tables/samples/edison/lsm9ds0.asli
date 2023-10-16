@@ -12,6 +12,9 @@ External (\_SB.PCI0.I2C1, DeviceObj)
 Scope (\_SB.PCI0.I2C1)
 {
     Device (ST9D) {
+        Name (_HID, "PRP0001")
+        Name (_DDN, "STMicro LSM9DS0 IMU")
+
         Device (GYRO) {
             Name (_HID, "PRP0001")
             Name (_DDN, "STMicro LSM9DS0 (gyro)")
