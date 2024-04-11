@@ -82,6 +82,10 @@
 #define MUX_UART_2WIRE 0
 #endif
 
+/**************************
+  NIO1 related definitions
+ **************************/
+
 #ifdef CONF_MUX15_DIR
 #define MUX15_DIR 1
 #else
@@ -160,6 +164,10 @@
 #define MUX_NIO1 0
 #endif
 
+/**************************
+  NIO2 related definitions
+ **************************/
+
 #ifdef CONF_DIG5_PU_PD
 #define DIG5_PU_PD 1
 #else
@@ -183,6 +191,10 @@
 #else
 #define MUX_NIO2 0
 #endif
+
+/**************************
+  NIO3 related definitions
+ **************************/
 
 #ifdef CONF_MUX14_DIR
 #define MUX14_DIR 1
@@ -231,6 +243,10 @@
 #else
 #define MUX_NIO3 0
 #endif
+
+/**************************
+  NIO4 related definitions
+ **************************/
 
 #ifdef CONF_MUX33_DIR
 #define MUX33_DIR 1
