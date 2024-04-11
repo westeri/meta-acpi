@@ -305,13 +305,21 @@
 #endif
 
 /* Sanity checks */
-#if MUX_UART_2WIRE && (MUX33_DIR || MUX31_DIR)
+#if MUX_UART
+
+#if MUX33_DIR || MUX31_DIR
 #error "UART can't be enabled with RxD/TxD pins set to GPIO function"
 #endif
 
-#if MUX_UART_4WIRE && (MUX29_DIR || MUX24_DIR)
+#if MUX_UART_4WIRE
+
+#if MUX29_DIR || MUX24_DIR
 #error "UART can't be enabled with RTS/CTS pins set to GPIO function"
 #endif
+
+#endif	/* MUX_UART_4WIRE */
+
+#endif	/* MUX_UART */
 
 #if MUX_SPI && (SPI_CLK_SEL || MUX18_DIR)
 #error "SPI can't be enabled with CLK pin set to GPIO function"
@@ -890,7 +898,7 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"uart1-cts-oe", "UCEN"},
                 Package () {"uart1-rts-oe", "UREN"},
 #endif
-#endif
+#endif	/* MUX_UART */
 #if MUX33_DIR
                 MUX33_DIR_REF
 #endif
@@ -985,7 +993,7 @@ Scope (\_SB.PCI0.I2C1)
             }
         })
 #endif
-#endif
+#endif	/* MUX_UART */
 
 #if MUX33_DIR
         MUX33_DIR_HOG
