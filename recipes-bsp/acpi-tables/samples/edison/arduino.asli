@@ -168,6 +168,18 @@
   NIO2 related definitions
  **************************/
 
+#ifdef CONF_DIG0_PU_PD
+#define DIG0_PU_PD 1
+#else
+#define DIG0_PU_PD 0
+#endif
+
+#ifdef CONF_DIG1_PU_PD
+#define DIG1_PU_PD 1
+#else
+#define DIG1_PU_PD 0
+#endif
+
 #ifdef CONF_DIG5_PU_PD
 #define DIG5_PU_PD 1
 #else
@@ -186,7 +198,7 @@
 #define DIG8_PU_PD 0
 #endif
 
-#if DIG5_PU_PD || DIG7_PU_PD || DIG8_PU_PD
+#if DIG0_PU_PD || DIG1_PU_PD || DIG5_PU_PD || DIG7_PU_PD || DIG8_PU_PD
 #define MUX_NIO2 1
 #else
 #define MUX_NIO2 0
@@ -325,6 +337,10 @@
 
 #if MUX33_DIR || MUX31_DIR
 #error "UART can't be enabled with RxD/TxD pins set to GPIO function"
+#endif
+
+#if DIG0_PU_PD || DIG1_PU_PD
+#error "UART can't be enabled with biased (PullUp or PullDown) RxD/TxD pins"
 #endif
 
 #if MUX_UART_4WIRE
@@ -548,6 +564,12 @@ Scope (\_SB.PCI0.I2C1)
                 Package () {"uart1-cts-pu", "UCUD"},
                 Package () {"uart1-rts-pu", "URUD"},
 #endif
+#endif	/* MUX_UART */
+#if DIG0_PU_PD
+                DIG0_PU_PD_REF
+#endif
+#if DIG1_PU_PD
+                DIG1_PU_PD_REF
 #endif
 #if DIG5_PU_PD
                 DIG5_PU_PD_REF
@@ -615,6 +637,12 @@ Scope (\_SB.PCI0.I2C1)
             }
         })
 #endif
+#endif	/* MUX_UART */
+#if DIG0_PU_PD
+        DIG0_PU_PD_HOG
+#endif
+#if DIG1_PU_PD
+        DIG1_PU_PD_HOG
 #endif
 #if DIG5_PU_PD
         DIG5_PU_PD_HOG
