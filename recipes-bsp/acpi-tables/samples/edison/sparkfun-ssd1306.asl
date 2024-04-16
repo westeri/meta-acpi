@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison / SparkFun OLED block (DEV-13035)
  *
- * Provides support for SparkFun OLED block (DEV-13035) connected to
- * Intel Edison board.
+ * SSD1306 64x48 display and GPIO buttons devices.
  *
  * Copyright (C) 2019, Intel Corporation
  *

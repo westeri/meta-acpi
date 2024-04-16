@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds 74X164 8-bits shift register GPIO expander to the SPI host
- * controller available on Edison I/O connector.
+ * 74x164 8-bit shift register GPIO expander.
  *
  * In Linux you need to set CONFIG_GPIO_74X164=y (or m) to be able to use
  * this device.

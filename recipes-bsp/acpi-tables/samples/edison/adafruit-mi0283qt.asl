@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * Provides support for Adafruit 2.8" TFT display with capacitive
- * touchscreen and micro-SD card slot on Intel Edison/Arduino board.
+ * Adafruit 2.8" TFT display with capacitive touchscreen and micro-SD card slot.
  *
  * Copyright (C) 2019, Intel Corporation
  *

@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds NXP PCA9685 16-channel 12-bit PWM to the first I2C bus available
- * on Intel Edison.
+ * NXP PCA9685 16-channel 12-bit PWM.
  *
  * In Linux you need to set CONFIG_PWM_PCA9685=y (or m) to be able to use
  * this device.

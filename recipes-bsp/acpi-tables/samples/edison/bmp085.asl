@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * Provides support for Bosch Sensortec BMP085 pressure and temperature sensor
- * on Intel Edison/Arduino board.
+ * Bosch Sensortec BMP085 pressure and temperature sensor.
  *
  * Copyright (C) 2020, Intel Corporation
  *

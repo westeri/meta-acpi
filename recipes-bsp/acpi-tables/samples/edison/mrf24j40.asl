@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * Provides support for Microchip MRF24J40 IEEE 802.15.4 2.4 GHz transceiver
- * on Intel Edison/Arduino board.
+ * Microchip MRF24J40 IEEE 802.15.4 2.4 GHz transceiver.
  */
 DefinitionBlock ("mrf24j40.aml", "SSDT", 5, "", "MRF24J40", 1)
 {

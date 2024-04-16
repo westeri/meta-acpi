@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds Microchip MRF24J40 IEEE 802.15.4 2.4 GHz transceiver to
- * the SPI host controller available on Intel Edison header.
+ * Microchip MRF24J40 IEEE 802.15.4 2.4 GHz transceiver.
  *
  * In Linux you need to set CONFIG_IEEE802154_MRF24J40=y (or m) to be able
  * to use this device.

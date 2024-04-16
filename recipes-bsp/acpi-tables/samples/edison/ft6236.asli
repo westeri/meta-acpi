@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds FocalTech FT6236 TouchScreen to the I2C6 bus available
- * on Intel Edison/Arduino header.
+ * FocalTech FT6236 TouchScreen.
  *
  * In Linux you need to set CONFIG_TOUCHSCREEN_EDT_FT5X06=y (or m)
  * to be able to use this device.

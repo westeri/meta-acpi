@@ -1,5 +1,5 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
  * Copyright (C) 2017, Intel Corporation
  *

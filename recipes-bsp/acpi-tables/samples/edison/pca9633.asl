@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds NXP PCA9633 LED to the I2C6 bus available
- * on Intel Edison header.
+ * NXP PCA9633 LED controller.
  *
  * In Linux you need to set CONFIG_LEDS_PCA963X=y (or m)
  * to be able to use this device.

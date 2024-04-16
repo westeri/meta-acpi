@@ -1,7 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds TI ADS1015 ADC to the first I2C bus available on Intel Edison.
+ * Texas Instruments ADS1015 ADC.
  *
  * In Linux you need to set CONFIG_TI_ADS1015=y (or m) to be able to use
  * this device.

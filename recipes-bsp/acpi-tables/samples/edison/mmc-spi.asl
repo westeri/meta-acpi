@@ -1,7 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * Provides support for MMC SPI slot on Intel Edison/Arduino board.
+ * MMC SPI slot.
  */
 DefinitionBlock ("mmc-spi.aml", "SSDT", 5, "", "MMC-SPI", 1)
 {

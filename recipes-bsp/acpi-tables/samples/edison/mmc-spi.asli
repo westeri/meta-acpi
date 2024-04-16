@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds MMC SPI slot to the SPI host controller available on
- * Intel Edison header.
+ * MMC SPI slot.
  *
  * In Linux you need to set CONFIG_MMC_SPI=y (or m) to be able to use
  * this device.

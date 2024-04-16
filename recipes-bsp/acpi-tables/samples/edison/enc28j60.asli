@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds Microchip ENC28J60 ethernet to the SPI host controller
- * available on Intel Edison/Arduino board.
+ * Microchip ENC28J60 ethernet adapter.
  *
  * In Linux you need to set CONFIG_ENC28J60=y (or m) to be able
  * to use this device.

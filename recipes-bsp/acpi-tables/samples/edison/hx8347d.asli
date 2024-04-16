@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * This adds Himax HX8347d 2.8" TFT display to the GPIOs available
- * on Intel Edison/Arduino header.
+ * Himax HX8347d 2.8" TFT display device.
  *
  * Arduino pin		TFT pin
  * -----------		-------

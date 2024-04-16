@@ -1,8 +1,6 @@
 /*
  * Intel Edison
  *
- * This table is modified from the Minnowboard Max leds.asl for Edison.
- *
  * According to Intel® Edison Kit for Arduino Hardware Guide March 2017
  * DS2 is the standard LED on the Arduino* board.
  * It runs using the ‘blink’ code or whenever Digital I/O 13 is asserted High.

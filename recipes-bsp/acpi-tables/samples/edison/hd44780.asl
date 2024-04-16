@@ -1,5 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
+ *
+ * 16x2 HD44780 Character LCD controller.
  *
  * Copyright (C) 2019, Intel Corporation
  *

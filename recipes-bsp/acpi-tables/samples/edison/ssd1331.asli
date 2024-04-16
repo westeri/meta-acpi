@@ -1,7 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds SSD1331 96x64 display device, 0.95inch, 65535 color OLED.
+ * SSD1331 96x64 display device, 0.95inch, 65535 color OLED.
  *
  * Arduino pin		OLED pin
  * -----------		-------

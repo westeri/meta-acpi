@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds MAX6959 7-segment LED display to the I2C6 bus available
- * on Intel Edison/Arduino header.
+ * MAX6959 7-segment LED display controller.
  *
  * In Linux you need to set CONFIG_MAX6959=y (or m)
  * to be able to use this device.

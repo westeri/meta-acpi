@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison / SparkFun OLED block (DEV-13035)
  *
- * This adds SSD1306 64x48 display device found on the SparkFun OLED block
- * (DEV-13035).
+ * SSD1306 64x48 display device.
  *
  * In Linux you need to set CONFIG_FB_TFT_SSD1306=y (or m) to be able to use
  * this device.

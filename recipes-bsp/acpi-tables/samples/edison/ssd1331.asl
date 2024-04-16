@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * Provides support for SSD1331 96x64 display device, 0.95inch, 65535 color
- * OLED on Intel Edison/Arduino board.
+ * SSD1331 96x64 display device, 0.95inch, 65535 color OLED.
  */
 DefinitionBlock ("ssd1331.aml", "SSDT", 5, "", "SSD1331", 1)
 {

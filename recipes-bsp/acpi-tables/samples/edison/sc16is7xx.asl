@@ -1,11 +1,10 @@
 /*
  * Intel Edison
  *
- * This adds NXP SC16IS7XX I2C-UART converter to the
- * I2C#6  bus available on Intel Edison:
+ * NXP SC16IS7xx I2C-UART converter.
  *
- *   pin name           pin number
- *   -----------------------------
+ *   pin name        pin number
+ *   --------------------------
  *   I2C_6_SDA       112
  *   I2C_6_SCL       111
  *

@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * This adds 16x2 HD44780 Character LCD to the GPIOs available
- * on Intel Edison/Arduino header.
+ * 16x2 HD44780 Character LCD controller.
  *
  * Arduino pin		LCD pin
  * -----------		-------

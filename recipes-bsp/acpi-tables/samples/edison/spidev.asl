@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds raw SPI test device to the SPI host controller available on
- * Edison I/O connector.
+ * Raw SPI test device.
  *
  * In Linux you need to set CONFIG_SPI_SPIDEV=y (or m) to be able to use
  * this device.

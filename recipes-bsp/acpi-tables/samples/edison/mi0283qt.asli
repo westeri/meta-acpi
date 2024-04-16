@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds Multi-Inno 2.8" TFT display to the SPI host controller
- * available on Intel Edison/Arduino board.
+ * Multi-Inno 2.8" TFT display device (based on Ilitek 9341).
  *
  * In Linux you need to set CONFIG_TINYDRM_MI0283QT=y (or m) to be able
  * to use this device.

@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds Diolan DLN-2 USB interface adapter to the high speed port
- * available on Intel Edison header.
+ * Diolan DLN-2 USB interface adapter.
  *
  * In Linux you need to set CONFIG_MFD_DLN2=y (or m) and at least
  * one of the CONFIG_GPIO_DLN2=y (or m), CONFIG_I2C_DLN2=y (or m),

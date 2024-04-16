@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
- * Provides support for Microchip ENC28J60 ethernet on Intel Edison/Arduino
- * board.
+ * Microchip ENC28J60 ethernet adapter.
  *
  * Copyright (C) 2019, Intel Corporation
  *

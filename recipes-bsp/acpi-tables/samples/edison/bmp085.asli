@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds Bosch Sensortec BMP085 pressure and temperature sensor
- * to the I2C6 bus available on Intel Edison/Arduino header.
+ * Bosch Sensortec BMP085 pressure and temperature sensor.
  *
  * In Linux you need to set CONFIG_BMP280=y (or m)
  * to be able to use this device.

@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * Provides support 74X164 8-bits shift register GPIO expander
- * to the SPI host controller available on Edison I/O connector.
+ * 74x164 8-bit shift register GPIO expander.
  *
  * Copyright (C) 2019, Intel Corporation
  *

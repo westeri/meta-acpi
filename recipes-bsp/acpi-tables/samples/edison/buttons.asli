@@ -1,8 +1,7 @@
 /*
- * Intel Edison
+ * Intel Edison / SparkFun OLED block (DEV-13035)
  *
- * This adds GPIO buttons device found on the SparkFun OLED block
- * (DEV-13035).
+ * GPIO buttons device.
  *
  * In Linux you need to set CONFIG_KEYBOARD_GPIO=y (or m) to be able to use
  * this device.

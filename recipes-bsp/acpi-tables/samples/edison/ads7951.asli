@@ -1,8 +1,7 @@
 /*
  * Intel Edison
  *
- * This adds Texas Instruments ADS7950 family of A/DC chips to the SPI host
- * controller available on Intel Edison/Arduino board.
+ * Texas Instruments ADS7951 ADC.
  *
  * In Linux you need to set CONFIG_TI_ADS7950=y (or m) to be able to use
  * this device.

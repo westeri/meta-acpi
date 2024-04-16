@@ -1,5 +1,5 @@
 /*
- * Intel Edison
+ * Intel Edison/Arduino
  *
  * Provides GPIO expanders and names for all GPIO pins.
  *
